@@ -21,7 +21,7 @@ A self-contained, single-page dashboard tracking the 2026 FIFA World Cup — bui
 ## Live Site
 
 Hosted on GitHub Pages:  
-[dumont94.github.io/nigeldumont.github.io/world-cup-2026.html](https://dumont94.github.io/nigeldumont.github.io/world-cup-2026.html)
+[dumont94.github.io/fifa-world-cup-dashboard](https://dumont94.github.io/fifa-world-cup-dashboard)
 
 ## Usage
 
