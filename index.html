@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>World Cup 26 — All-Time Scorers, Bracket & Title Race</title>
 <meta name="description" content="A live snapshot of the 2026 FIFA World Cup: all-time goalscoring leaders, the Golden Boot race, the Round of 32 bracket, title odds, and final group tables." />
+<meta name="color-scheme" content="light dark" />
+<meta name="theme-color" content="#F4F6FA" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0C1322" media="(prefers-color-scheme: dark)" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -14,15 +18,22 @@
     --surface: #FFFFFF;
     --ink:     #0B1B33;
     --muted:   #5C6B82;
-    --faint:   #8A97AB;
+    --faint:   #64748B;
     --line:    #E3E8EF;
     --line-2:  #EEF1F6;
     --blue:    #1F3FBF;
     --blue-deep:#11225E;
     --blue-soft:#E9EDFB;
+    --blue-3:  #6E84D6;
     --red:     #E11D2E;
     --red-soft:#FCE8EA;
+    --red-line:#F6CBD0;
     --ok:      #1E8E5A;
+    --ok-line: #C9E3D5;
+    --code-bg: #0B1B33;
+    --code-fg: #FFFFFF;
+    --on-blue: #FFFFFF;
+    --nav-bg:  rgba(244,246,250,.82);
 
     --r-sm: 8px;
     --r-md: 14px;
@@ -35,6 +46,32 @@
     --f-mono: 'JetBrains Mono', ui-monospace, monospace;
 
     --wrap: 1120px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper:   #0C1322;
+      --surface: #131C2C;
+      --ink:     #E7EDF6;
+      --muted:   #A2AEC2;
+      --faint:   #8593A9;
+      --line:    #25314A;
+      --line-2:  #1B2638;
+      --blue:    #6C8CFF;
+      --blue-soft:#1D2A4E;
+      --blue-3:  #4A5C94;
+      --red:     #FF6B78;
+      --red-soft:#33191F;
+      --red-line:#55262E;
+      --ok:      #46C489;
+      --ok-line: #1F4A38;
+      --code-bg: #2A3A57;
+      --code-fg: #E7EDF6;
+      --on-blue: #0C1322;
+      --nav-bg:  rgba(12,19,34,.82);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.3), 0 1px 3px rgba(0,0,0,.25);
+      --shadow-md: 0 6px 22px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.3);
+    }
   }
 
   * { box-sizing: border-box; }
@@ -52,6 +89,8 @@
     text-rendering: optimizeLegibility;
   }
 
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
   /* tricolor signature stripe */
   .flagstripe { height: 4px; display: grid; grid-template-columns: 1fr 1fr 1fr; }
   .flagstripe i:nth-child(1){ background: var(--red); }
@@ -66,36 +105,41 @@
   /* ---------- NAV ---------- */
   nav {
     position: sticky; top: 0; z-index: 50;
-    background: rgba(244,246,250,.82);
+    background: var(--nav-bg);
     backdrop-filter: saturate(180%) blur(12px);
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--line);
   }
   .nav-in { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 18px; }
-  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-disp); font-weight: 900; letter-spacing: -.02em; font-size: 19px; }
-  .brand .mark { width: 26px; height: 26px; border-radius: 6px; background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 900; }
+  .brand { display: flex; align-items: center; gap: 10px; font-family: var(--f-disp); font-weight: 900; letter-spacing: -.02em; font-size: 19px; white-space: nowrap; }
+  .brand .mark { width: 26px; height: 26px; border-radius: 6px; background: var(--blue); color: var(--on-blue); display: grid; place-items: center; font-size: 13px; font-weight: 900; }
   .brand small { font-family: var(--f-mono); font-weight: 600; font-size: 11px; color: var(--blue); background: var(--blue-soft); padding: 2px 7px; border-radius: 999px; letter-spacing: 0; }
-  .nav-links { display: flex; gap: 4px; }
-  .nav-links a { font-family: var(--f-mono); font-size: 12.5px; font-weight: 600; color: var(--muted); text-decoration: none; padding: 7px 11px; border-radius: 8px; }
+  .nav-links { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a { font-family: var(--f-mono); font-size: 12.5px; font-weight: 600; color: var(--muted); text-decoration: none; padding: 7px 11px; border-radius: 8px; white-space: nowrap; }
   .nav-links a:hover { color: var(--ink); background: var(--line-2); }
-  @media (max-width: 860px){ .nav-links { display: none; } }
+  @media (max-width: 860px){
+    .nav-in { flex-wrap: wrap; height: auto; padding: 10px 0 8px; row-gap: 2px; }
+    .nav-links { width: 100%; margin: 0 -11px; }
+  }
 
   /* ---------- shared section bits ---------- */
-  section { padding: 64px 0; border-top: 1px solid var(--line-2); }
+  section { padding: 64px 0; border-top: 1px solid var(--line-2); scroll-margin-top: 72px; }
+  @media (max-width: 860px){ section { scroll-margin-top: 112px; } }
   .eyebrow { display: inline-flex; align-items: center; gap: 9px; font-family: var(--f-mono); font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); }
   .eyebrow::before { content:""; width: 22px; height: 2px; background: var(--red); display: inline-block; }
   h2.sec { font-family: var(--f-disp); font-weight: 800; font-size: clamp(26px, 4vw, 40px); letter-spacing: -.025em; margin: 14px 0 8px; line-height: 1.04; }
   .sec-lede { color: var(--muted); max-width: 60ch; margin: 0 0 28px; font-size: 15.5px; }
 
-  /* live badge */
-  .live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--red); background: var(--red-soft); border: 1px solid #F6CBD0; padding: 3px 9px 3px 8px; border-radius: 999px; text-transform: uppercase; vertical-align: middle; }
+  /* live badge (hero only) */
+  .live { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--red); background: var(--red-soft); border: 1px solid var(--red-line); padding: 3px 9px 3px 8px; border-radius: 999px; text-transform: uppercase; vertical-align: middle; }
   .live .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 0%,100% { opacity: 1; transform: scale(1);} 50% { opacity: .35; transform: scale(.7);} }
   @media (prefers-reduced-motion: reduce){ .live .dot { animation: none; } }
   .final-tag { font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--ink); background: var(--line-2); border: 1px solid var(--line); padding: 3px 9px; border-radius: 999px; text-transform: uppercase; vertical-align: middle; }
 
   /* country code badge */
-  .code { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: .02em; background: var(--ink); color: #fff; padding: 3px 6px; border-radius: 5px; display: inline-block; min-width: 38px; text-align: center; }
+  .code { font-family: var(--f-mono); font-weight: 700; font-size: 12px; letter-spacing: .02em; background: var(--code-bg); color: var(--code-fg); padding: 3px 6px; border-radius: 5px; display: inline-block; min-width: 38px; text-align: center; }
   .code.lite { background: var(--line-2); color: var(--muted); }
 
   .star { color: var(--blue); }
@@ -118,54 +162,60 @@
   .feat .row1 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
   .feat .badge { font-family: var(--f-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 3px 8px; border-radius: 999px; }
   .feat .badge.rec { background: #fff; color: var(--blue-deep); }
-  .feat .badge.lv { background: var(--red); color: #fff; display: inline-flex; align-items: center; gap: 6px; }
+  .feat .badge.lv { background: #E11D2E; color: #fff; display: inline-flex; align-items: center; gap: 6px; }
   .feat .badge.lv .dot { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: pulse 1.8s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .feat .badge.lv .dot { animation: none; } }
   .feat .num { font-family: var(--f-mono); font-weight: 700; font-size: 84px; line-height: .9; letter-spacing: -.04em; }
   .feat .num small { font-size: 17px; font-weight: 600; opacity: .7; letter-spacing: 0; margin-left: 6px; }
   .feat .who { font-family: var(--f-disp); font-weight: 800; font-size: 24px; letter-spacing: -.02em; margin-top: 8px; }
   .feat .meta { font-size: 13.5px; color: rgba(255,255,255,.72); margin-top: 4px; }
   .feat .ctx { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,.16); font-size: 13.5px; color: rgba(255,255,255,.86); position: relative; z-index: 1; }
 
-  /* ---------- leaderboard ---------- */
+  /* ---------- leaderboards (all-time + golden boot) ---------- */
   .board { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); }
-  .lb-row { display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 14px; padding: 13px 18px; border-top: 1px solid var(--line-2); }
-  .lb-row:first-child { border-top: none; }
-  .lb-row.top { background: linear-gradient(90deg, rgba(31,63,191,.04), transparent 40%); }
-  .lb-rank { font-family: var(--f-mono); font-weight: 700; font-size: 17px; color: var(--faint); text-align: center; }
-  .lb-row.top .lb-rank { color: var(--blue); }
-  .lb-name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  table.lb, table.gb { width: 100%; border-collapse: collapse; }
+  table.lb td, table.gb td { border-top: 1px solid var(--line-2); vertical-align: middle; }
+  table.lb tbody tr:first-child td, table.gb tbody tr:first-child td { border-top: none; }
+  table.lb td { padding: 13px 8px; }
+  table.gb td { padding: 12px 8px; }
+  td.lb-rank, td.gb-rank { width: 52px; text-align: center; font-family: var(--f-mono); font-weight: 700; color: var(--faint); }
+  td.lb-rank { font-size: 17px; }
+  tr.top { background: linear-gradient(90deg, rgba(31,63,191,.06), transparent 40%); }
+  tr.top td.lb-rank { color: var(--blue); }
+  tr.lead { background: linear-gradient(90deg, rgba(225,29,46,.06), transparent 45%); }
+  tr.lead td.gb-rank { color: var(--red); }
+  .lb-name, .gb-name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .lb-name .nm { font-family: var(--f-disp); font-weight: 700; font-size: 16.5px; letter-spacing: -.01em; }
-  .lb-name .ct { font-size: 12.5px; color: var(--muted); font-family: var(--f-mono); }
-  .lb-tag { font-family: var(--f-mono); font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
-  .lb-tag.active { color: var(--red); background: var(--red-soft); border: 1px solid #F6CBD0; }
-  .lb-tag.retired { color: var(--faint); background: var(--line-2); }
-  .lb-goals { font-family: var(--f-mono); font-weight: 700; font-size: 22px; letter-spacing: -.02em; text-align: right; }
-  .lb-goals span { font-size: 11.5px; color: var(--faint); font-weight: 600; display: block; line-height: 1; margin-top: 2px; }
-
-  /* ---------- golden boot ---------- */
-  .gb-row { display: grid; grid-template-columns: 40px 1fr 132px 58px; align-items: center; gap: 14px; padding: 12px 18px; border-top: 1px solid var(--line-2); }
-  .gb-row:first-child { border-top: none; }
-  .gb-row.lead { background: linear-gradient(90deg, rgba(225,29,46,.05), transparent 45%); }
-  .gb-rank { font-family: var(--f-mono); font-weight: 700; color: var(--faint); text-align: center; }
-  .gb-row.lead .gb-rank { color: var(--red); }
   .gb-name .nm { font-family: var(--f-disp); font-weight: 700; font-size: 15.5px; }
-  .gb-name .ct { font-size: 12px; color: var(--muted); font-family: var(--f-mono); }
-  .gb-bar { height: 9px; background: var(--line-2); border-radius: 999px; overflow: hidden; }
-  .gb-bar i { display: block; height: 100%; background: var(--blue); border-radius: 999px; }
-  .gb-row.lead .gb-bar i { background: var(--red); }
-  .gb-stat { font-family: var(--f-mono); font-weight: 700; font-size: 17px; text-align: right; }
-  .gb-stat small { display: block; font-size: 10.5px; color: var(--faint); font-weight: 600; line-height: 1; margin-top: 1px; }
+  .lb-name .ct, .gb-name .ct { font-size: 12.5px; color: var(--muted); font-family: var(--f-mono); }
+  .lb-tag { font-family: var(--f-mono); font-size: 10px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; }
+  .lb-tag.active { color: var(--red); background: var(--red-soft); border: 1px solid var(--red-line); }
+  .lb-tag.retired { color: var(--faint); background: var(--line-2); }
+  td.lb-bar-td, td.gb-bar-td { width: 150px; padding-right: 14px; }
+  .lb-bar, .gb-bar { display: block; height: 9px; background: var(--line-2); border-radius: 999px; overflow: hidden; }
+  .lb-bar i, .gb-bar i { display: block; height: 100%; background: var(--blue); border-radius: 999px; }
+  tr.lead .gb-bar i { background: var(--red); }
+  td.lb-goals { width: 70px; text-align: right; padding-right: 18px; font-family: var(--f-mono); font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+  td.lb-goals span { font-size: 11.5px; color: var(--faint); font-weight: 600; display: block; line-height: 1; margin-top: 2px; }
+  td.gb-stat { width: 70px; text-align: right; padding-right: 18px; font-family: var(--f-mono); font-weight: 700; font-size: 17px; }
+  td.gb-stat small { display: block; font-size: 10.5px; color: var(--faint); font-weight: 600; line-height: 1; margin-top: 1px; }
   .gb-foot { font-size: 13px; color: var(--muted); margin-top: 14px; padding-left: 2px; }
+  @media (max-width: 620px){
+    td.lb-bar-td, td.gb-bar-td { display: none; }
+    table.lb td, table.gb td { padding-left: 4px; padding-right: 4px; }
+    td.lb-rank, td.gb-rank { width: 36px; }
+    td.lb-goals, td.gb-stat { padding-right: 14px; }
+  }
 
   /* ---------- bracket ---------- */
   .quarters { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
   @media (max-width: 760px){ .quarters { grid-template-columns: 1fr; } }
   .quart { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px; box-shadow: var(--shadow-sm); }
-  .quart h4 { margin: 2px 2px 12px; font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; }
-  .quart h4 span { color: var(--faint); font-weight: 600; }
+  .quart h3 { margin: 2px 2px 12px; font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; }
+  .quart h3 span { color: var(--faint); font-weight: 600; text-align: right; }
   .match { border: 1px solid var(--line-2); border-radius: var(--r-sm); padding: 9px 11px; margin-bottom: 9px; }
   .match:last-child { margin-bottom: 0; }
-  .match.done { border-color: #C9E3D5; background: linear-gradient(90deg, rgba(30,142,90,.05), transparent); }
+  .match.done { border-color: var(--ok-line); background: linear-gradient(90deg, rgba(30,142,90,.05), transparent); }
   .mteam { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 3px 0; }
   .mteam .l { display: flex; align-items: center; gap: 9px; }
   .mteam .tn { font-weight: 600; font-size: 14px; }
@@ -190,40 +240,53 @@
   .pcol.fin .cnt { color: var(--blue); }
 
   /* ---------- prediction table ---------- */
-  .tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow-x: auto; box-shadow: var(--shadow-sm); }
   table.pred { width: 100%; border-collapse: collapse; }
   table.pred th, table.pred td { padding: 12px 16px; text-align: left; border-top: 1px solid var(--line-2); }
-  table.pred thead th { border-top: none; background: var(--paper); font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); }
+  table.pred thead th { border-top: none; background: var(--paper); font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
   table.pred th.num, table.pred td.num { text-align: right; font-family: var(--f-mono); }
   table.pred tbody tr:first-child td { border-top: none; }
   table.pred tbody tr.fav { background: linear-gradient(90deg, rgba(31,63,191,.045), transparent 50%); }
-  .pr-team { font-family: var(--f-disp); font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; }
+  .pr-team { font-family: var(--f-disp); font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
   .pr-rank { font-family: var(--f-mono); color: var(--faint); font-weight: 700; }
   .pr-prob { font-family: var(--f-mono); font-weight: 700; font-size: 15px; }
-  .pr-bar { position: relative; height: 6px; background: var(--line-2); border-radius: 999px; margin-top: 5px; overflow: hidden; max-width: 120px; margin-left: auto; }
+  .pr-bar { position: relative; height: 6px; background: var(--line-2); border-radius: 999px; margin-top: 5px; overflow: hidden; max-width: 120px; min-width: 72px; margin-left: auto; }
   .pr-bar i { position: absolute; left: 0; top: 0; height: 100%; background: var(--blue); border-radius: 999px; }
   tr.fav .pr-bar i { background: var(--red); }
   .pr-model { color: var(--muted); }
   .pr-na { color: var(--faint); }
   .pred-foot { font-size: 13px; color: var(--muted); margin-top: 14px; }
-  @media (max-width: 620px){ table.pred .hide-sm { display: none; } }
+  table.pred th:first-child { width: 46px; }
+  @media (max-width: 620px){
+    table.pred .hide-sm { display: none; }
+    table.pred th, table.pred td { padding: 10px 7px; }
+    table.pred th:first-child { width: 30px; }
+    table.pred td.num { font-size: 13px; }
+    .pr-team { font-size: 14px; gap: 8px; }
+    .pr-prob { font-size: 14px; }
+    .pr-bar { min-width: 56px; }
+    .code { min-width: 34px; padding: 3px 5px; font-size: 11px; }
+    .lg-only { display: none; }
+  }
 
   /* ---------- standings ---------- */
   .groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   @media (max-width: 900px){ .groups { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 600px){ .groups { grid-template-columns: 1fr; } }
   .grp { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; box-shadow: var(--shadow-sm); }
-  .grp h5 { margin: 0; padding: 11px 14px; font-family: var(--f-disp); font-weight: 800; font-size: 14px; border-bottom: 1px solid var(--line-2); display: flex; justify-content: space-between; align-items: center; }
-  .grp h5 small { font-family: var(--f-mono); font-weight: 600; font-size: 10px; color: var(--faint); letter-spacing: .04em; }
+  .grp h3 { margin: 0; padding: 11px 14px; font-family: var(--f-disp); font-weight: 800; font-size: 14px; border-bottom: 1px solid var(--line-2); display: flex; justify-content: space-between; align-items: center; }
+  .grp h3 small { font-family: var(--f-mono); font-weight: 600; font-size: 10px; color: var(--faint); letter-spacing: .04em; }
   table.gt { width: 100%; border-collapse: collapse; font-size: 13px; }
-  table.gt th { font-family: var(--f-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .04em; color: var(--faint); text-transform: uppercase; padding: 6px 6px; text-align: center; }
+  table.gt th { font-family: var(--f-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .04em; color: var(--faint); text-transform: uppercase; padding: 6px 5px; text-align: center; }
   table.gt th.tm { text-align: left; padding-left: 14px; }
-  table.gt td { padding: 7px 6px; text-align: center; border-top: 1px solid var(--line-2); }
+  table.gt td { padding: 7px 5px; text-align: center; border-top: 1px solid var(--line-2); }
   table.gt td.tm { text-align: left; padding-left: 14px; font-weight: 600; }
+  table.gt td.gd { font-family: var(--f-mono); font-size: 12px; }
   table.gt td.pts { font-family: var(--f-mono); font-weight: 700; }
+  table.gt .code { margin-right: 7px; }
   .pos { display: inline-grid; place-items: center; width: 17px; height: 17px; border-radius: 4px; font-family: var(--f-mono); font-size: 10px; font-weight: 700; margin-right: 8px; vertical-align: middle; background: var(--line-2); color: var(--muted); }
-  tr.q .pos { background: var(--blue); color: #fff; }
-  tr.q3 .pos { background: #6E84D6; color: #fff; }
+  tr.q .pos { background: var(--blue); color: var(--on-blue); }
+  tr.q3 .pos { background: var(--blue-3); color: var(--on-blue); }
   tr.q td.tm, tr.q3 td.tm { color: var(--ink); }
   tr.out td { color: var(--faint); }
   .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; color: var(--muted); margin-top: 16px; }
@@ -233,24 +296,27 @@
   footer { background: var(--blue-deep); color: rgba(255,255,255,.8); padding: 40px 0 30px; }
   footer .fgrid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; }
   @media (max-width: 720px){ footer .fgrid { grid-template-columns: 1fr; gap: 22px; } }
-  footer h6 { font-family: var(--f-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: #fff; margin: 0 0 10px; }
+  footer h3 { font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: #fff; margin: 0 0 10px; }
   footer p { font-size: 13px; line-height: 1.6; margin: 0 0 8px; }
   footer .disc { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: var(--r-sm); padding: 14px 16px; font-size: 12.5px; }
   footer a { color: #fff; }
   footer .sig { margin-top: 26px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.14); display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-family: var(--f-mono); font-size: 11.5px; color: rgba(255,255,255,.6); }
 
-  /* reveal */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.in { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce){ .reveal { opacity: 1; transform: none; transition: none; } }
+  /* reveal — only hides content when JS confirms it can reveal it again */
+  .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .js .reveal.in { opacity: 1; transform: none; }
+  @media print {
+    .reveal { opacity: 1 !important; transform: none !important; }
+    nav { position: static; }
+  }
 </style>
 </head>
 <body>
-<div class="flagstripe"><i></i><i></i><i></i></div>
+<div class="flagstripe" aria-hidden="true"><i></i><i></i><i></i></div>
 
-<nav>
+<nav aria-label="Sections">
   <div class="wrap nav-in">
-    <div class="brand"><span class="mark">26</span> WORLD&nbsp;CUP <small>USA · CAN · MEX</small></div>
+    <div class="brand"><span class="mark" aria-hidden="true">26</span> WORLD&nbsp;CUP <small>USA · CAN · MEX</small></div>
     <div class="nav-links">
       <a href="#leaders">All-time</a>
       <a href="#boot">Golden Boot</a>
@@ -268,14 +334,14 @@
       <h1>The all-time list has a <span class="accent">new name.</span></h1>
       <p class="sub">For the first time in over a decade, the record for most World Cup goals belongs to someone other than Miroslav Klose — and two of the men chasing him are still on the pitch in 2026.</p>
       <div class="stamp">
-        <span class="live"><span class="dot"></span>Live snapshot</span>
+        <span class="live"><span class="dot" aria-hidden="true"></span>Live snapshot</span>
         <span>Captured <b>Jun 28, 2026</b> · end of group stage</span>
       </div>
     </div>
     <div class="feat" aria-label="Record holder">
       <div class="row1">
         <span class="badge rec">★ All-time record</span>
-        <span class="badge lv"><span class="dot"></span>Live</span>
+        <span class="badge lv"><span class="dot" aria-hidden="true"></span>Live</span>
       </div>
       <div class="num" data-count="19">19<small>goals</small></div>
       <div class="who">Lionel Messi</div>
@@ -289,9 +355,75 @@
 <section id="leaders">
   <div class="wrap">
     <span class="eyebrow">The ranking</span>
-    <h2 class="sec">All-time goalscoring leaders <span class="live"><span class="dot"></span>Live</span></h2>
+    <h2 class="sec">All-time goalscoring leaders</h2>
     <p class="sec-lede">Every player with 11+ career World Cup goals, counting the 2026 tournament through the group stage. Three of them are active and climbing right now — flagged below.</p>
-    <div class="board reveal" id="lb"></div>
+    <div class="board reveal">
+      <table class="lb">
+        <thead class="sr-only"><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Share of record</th><th scope="col">Goals</th></tr></thead>
+        <tbody>
+          <tr class="top">
+            <td class="lb-rank">1</td>
+            <td><span class="lb-name"><span class="nm">Lionel Messi</span><span class="ct">Argentina</span><span class="lb-tag active">Live · +6 in 2026</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:100%"></i></span></td>
+            <td class="lb-goals">19<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">2</td>
+            <td><span class="lb-name"><span class="nm">Kylian Mbappé</span><span class="ct">France</span><span class="lb-tag active">Live · +4 in 2026</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:84%"></i></span></td>
+            <td class="lb-goals">16<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">2</td>
+            <td><span class="lb-name"><span class="nm">Miroslav Klose</span><span class="ct">Germany</span><span class="lb-tag retired">2002–2014</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:84%"></i></span></td>
+            <td class="lb-goals">16<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">4</td>
+            <td><span class="lb-name"><span class="nm">Ronaldo</span><span class="ct">Brazil</span><span class="lb-tag retired">1998–2006</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:79%"></i></span></td>
+            <td class="lb-goals">15<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">5</td>
+            <td><span class="lb-name"><span class="nm">Gerd Müller</span><span class="ct">W. Germany</span><span class="lb-tag retired">1970–1974</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:74%"></i></span></td>
+            <td class="lb-goals">14<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">6</td>
+            <td><span class="lb-name"><span class="nm">Just Fontaine</span><span class="ct">France</span><span class="lb-tag retired">all in 1958</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:68%"></i></span></td>
+            <td class="lb-goals">13<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">7</td>
+            <td><span class="lb-name"><span class="nm">Pelé</span><span class="ct">Brazil</span><span class="lb-tag retired">1958–1970</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:63%"></i></span></td>
+            <td class="lb-goals">12<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">8</td>
+            <td><span class="lb-name"><span class="nm">Sándor Kocsis</span><span class="ct">Hungary</span><span class="lb-tag retired">1954</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
+            <td class="lb-goals">11<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">8</td>
+            <td><span class="lb-name"><span class="nm">Jürgen Klinsmann</span><span class="ct">Germany</span><span class="lb-tag retired">1990–1998</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
+            <td class="lb-goals">11<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">8</td>
+            <td><span class="lb-name"><span class="nm">Harry Kane</span><span class="ct">England</span><span class="lb-tag active">Live · +3 in 2026</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
+            <td class="lb-goals">11<span>goals</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p class="gb-foot">Active totals (Messi, Mbappé, Kane) move with every match they play. Retired players' totals are fixed. Several players sit just outside this list on 10 goals — Lineker, Batistuta, T. Müller, Cubillas.</p>
   </div>
 </section>
@@ -300,9 +432,75 @@
 <section id="boot">
   <div class="wrap">
     <span class="eyebrow">2026 · Golden Boot race</span>
-    <h2 class="sec">Who's winning the Boot <span class="live"><span class="dot"></span>Live</span></h2>
+    <h2 class="sec">Who's winning the Boot</h2>
     <p class="sec-lede">Goals scored in this tournament only. Messi leads outright; four players are knotted behind him, separated by the official tiebreaker — assists first, then fewest minutes played.</p>
-    <div class="board reveal" id="gb"></div>
+    <div class="board reveal">
+      <table class="gb">
+        <thead class="sr-only"><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Share of lead</th><th scope="col">Goals and assists</th></tr></thead>
+        <tbody>
+          <tr class="lead">
+            <td class="gb-rank">1</td>
+            <td><span class="gb-name"><span class="nm">Lionel Messi</span><span class="ct">Argentina</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:100%"></i></span></td>
+            <td class="gb-stat">6<small>0 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">2</td>
+            <td><span class="gb-name"><span class="nm">Kylian Mbappé</span><span class="ct">France</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
+            <td class="gb-stat">4<small>2 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">2</td>
+            <td><span class="gb-name"><span class="nm">Ousmane Dembélé</span><span class="ct">France</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
+            <td class="gb-stat">4<small>1 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">2</td>
+            <td><span class="gb-name"><span class="nm">Vinícius Júnior</span><span class="ct">Brazil</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
+            <td class="gb-stat">4<small>1 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">2</td>
+            <td><span class="gb-name"><span class="nm">Erling Haaland</span><span class="ct">Norway</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
+            <td class="gb-stat">4<small>0 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">6</td>
+            <td><span class="gb-name"><span class="nm">Deniz Undav</span><span class="ct">Germany</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">3<small>2 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">6</td>
+            <td><span class="gb-name"><span class="nm">Harry Kane</span><span class="ct">England</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">3<small>0 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">6</td>
+            <td><span class="gb-name"><span class="nm">Jonathan David</span><span class="ct">Canada</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">3<small>0 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">6</td>
+            <td><span class="gb-name"><span class="nm">Matheus Cunha</span><span class="ct">Brazil</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">3<small>0 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">6</td>
+            <td><span class="gb-name"><span class="nm">Brian Brobbey</span><span class="ct">Netherlands</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">3<small>0 ast</small></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <p class="gb-foot">Tiebreak order: most goals → most assists → fewest minutes. Behind the top group, a crowd sits on 2 — including Cristiano Ronaldo (brace vs. Uzbekistan), Kai Havertz, Cody Gakpo and USA's Folarin Balogun.</p>
   </div>
 </section>
@@ -311,9 +509,123 @@
 <section id="bracket">
   <div class="wrap">
     <span class="eyebrow">2026 · Knockout stage</span>
-    <h2 class="sec">Round of 32 <span class="live"><span class="dot"></span>In progress</span></h2>
+    <h2 class="sec">Round of 32 <span class="final-tag">In progress</span></h2>
     <p class="sec-lede">The first 48-team World Cup adds a Round of 32: the 12 group winners and 12 runners-up join the 8 best third-placed teams. One match is done — Canada knocked out South Africa. The rest run through Jul 3.</p>
-    <div class="quarters reveal" id="r32"></div>
+    <div class="quarters reveal">
+
+      <div class="quart">
+        <h3>Quarter 1<span>Winners → R16 (Houston / Philadelphia)</span></h3>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">CAN</span><span class="tn">Canada</span></span><span class="sc">1</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">RSA</span><span class="tn">South Africa</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jun 28 · SoFi, LA</span><span class="res">Canada advance</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">NED</span><span class="tn">Netherlands</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">MAR</span><span class="tn">Morocco</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 29 · Monterrey</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">GER</span><span class="tn">Germany</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">PAR</span><span class="tn">Paraguay</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 29 · Foxborough</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">SWE</span><span class="tn">Sweden</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 30 · New Jersey</span><span>Upcoming</span></div>
+        </div>
+      </div>
+
+      <div class="quart">
+        <h3>Quarter 2<span>Winners → R16 (Arlington / Seattle)</span></h3>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">AUT</span><span class="tn">Austria</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 2 · Los Angeles</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">POR</span><span class="tn">Portugal</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">CRO</span><span class="tn">Croatia</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 2 · Toronto</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">BEL</span><span class="tn">Belgium</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">SEN</span><span class="tn">Senegal</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 1 · Seattle</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">USA</span><span class="tn">USA</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">BIH</span><span class="tn">Bosnia</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 1 · Santa Clara</span><span>Upcoming</span></div>
+        </div>
+      </div>
+
+      <div class="quart">
+        <h3>Quarter 3<span>Winners → R16 (New Jersey / Mexico City)</span></h3>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">BRA</span><span class="tn">Brazil</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">JPN</span><span class="tn">Japan</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 29 · Houston</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">CIV</span><span class="tn">Ivory Coast</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">NOR</span><span class="tn">Norway</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 30 · Arlington</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">MEX</span><span class="tn">Mexico</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">ECU</span><span class="tn">Ecuador</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jun 30 · Mexico City</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">COD</span><span class="tn">Congo DR</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 1 · Atlanta</span><span>Upcoming</span></div>
+        </div>
+      </div>
+
+      <div class="quart">
+        <h3>Quarter 4<span>Winners → R16 (Atlanta / Kansas City)</span></h3>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">AUS</span><span class="tn">Australia</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">EGY</span><span class="tn">Egypt</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 3 · Arlington</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">CPV</span><span class="tn">Cape Verde</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 3 · Miami</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">SUI</span><span class="tn">Switzerland</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">DZA</span><span class="tn">Algeria</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 2 · Vancouver</span><span>Upcoming</span></div>
+        </div>
+        <div class="match">
+          <div class="mteam"><span class="l"><span class="code">COL</span><span class="tn">Colombia</span></span><span class="sc">–</span></div>
+          <div class="mdiv"></div>
+          <div class="mteam"><span class="l"><span class="code">GHA</span><span class="tn">Ghana</span></span><span class="sc">–</span></div>
+          <div class="minfo"><span>Jul 3 · Kansas City</span><span>Upcoming</span></div>
+        </div>
+      </div>
+
+    </div>
 
     <div class="path-title">Path to the final — everything past the Round of 32 is still to be decided</div>
     <div class="path reveal">
@@ -329,20 +641,105 @@
 <section id="title">
   <div class="wrap">
     <span class="eyebrow">2026 · Most likely to win</span>
-    <h2 class="sec">Title race <span class="live"><span class="dot"></span>Moves every match</span></h2>
-    <p class="sec-lede">Two readings side by side: the betting market (sportsbook odds, converted to an implied chance) and the Opta supercomputer's model. They agree on the top four. France overtook pre-tournament favourite Spain after a perfect group stage; defending champ Argentina sits second on a kind bracket draw.</p>
+    <h2 class="sec">Title race</h2>
+    <p class="sec-lede">Two readings side by side: the betting market (sportsbook odds, converted to an implied chance) and the Opta supercomputer's model. They agree on the top four. France overtook pre-tournament favourite Spain after a perfect group stage; defending champ Argentina sits second on a kind bracket draw. Both readings move after every match.</p>
     <div class="tablewrap reveal">
       <table class="pred">
         <thead>
           <tr>
-            <th style="width:46px">#</th>
-            <th>Team</th>
-            <th class="num">Market odds</th>
-            <th class="num">Market %</th>
-            <th class="num hide-sm">Model %</th>
+            <th scope="col">#</th>
+            <th scope="col">Team</th>
+            <th scope="col" class="num"><span class="lg-only">Market </span>odds</th>
+            <th scope="col" class="num">Market %</th>
+            <th scope="col" class="num hide-sm">Model %</th>
           </tr>
         </thead>
-        <tbody id="pred"></tbody>
+        <tbody>
+          <tr class="fav">
+            <td class="pr-rank">1</td>
+            <td><span class="pr-team"><span class="code">FRA</span>France</span></td>
+            <td class="num">+340</td>
+            <td class="num"><span class="pr-prob">22.7%</span><div class="pr-bar"><i style="width:100%"></i></div></td>
+            <td class="num hide-sm pr-model">18.7%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">2</td>
+            <td><span class="pr-team"><span class="code">ARG</span>Argentina</span></td>
+            <td class="num">+410</td>
+            <td class="num"><span class="pr-prob">19.6%</span><div class="pr-bar"><i style="width:86%"></i></div></td>
+            <td class="num hide-sm pr-model">16.3%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">3</td>
+            <td><span class="pr-team"><span class="code">ESP</span>Spain</span></td>
+            <td class="num">+650</td>
+            <td class="num"><span class="pr-prob">13.3%</span><div class="pr-bar"><i style="width:59%"></i></div></td>
+            <td class="num hide-sm pr-model">13.5%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">4</td>
+            <td><span class="pr-team"><span class="code">ENG</span>England</span></td>
+            <td class="num">+650</td>
+            <td class="num"><span class="pr-prob">13.3%</span><div class="pr-bar"><i style="width:59%"></i></div></td>
+            <td class="num hide-sm pr-model">9.7%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">5</td>
+            <td><span class="pr-team"><span class="code">BRA</span>Brazil</span></td>
+            <td class="num">+1300</td>
+            <td class="num"><span class="pr-prob">7.1%</span><div class="pr-bar"><i style="width:31%"></i></div></td>
+            <td class="num hide-sm pr-model">6.5%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">6</td>
+            <td><span class="pr-team"><span class="code">POR</span>Portugal</span></td>
+            <td class="num">+1500</td>
+            <td class="num"><span class="pr-prob">6.3%</span><div class="pr-bar"><i style="width:28%"></i></div></td>
+            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+          </tr>
+          <tr>
+            <td class="pr-rank">7</td>
+            <td><span class="pr-team"><span class="code">GER</span>Germany</span></td>
+            <td class="num">+1500</td>
+            <td class="num"><span class="pr-prob">6.3%</span><div class="pr-bar"><i style="width:28%"></i></div></td>
+            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+          </tr>
+          <tr>
+            <td class="pr-rank">8</td>
+            <td><span class="pr-team"><span class="code">NED</span>Netherlands</span></td>
+            <td class="num">+1800</td>
+            <td class="num"><span class="pr-prob">5.3%</span><div class="pr-bar"><i style="width:23%"></i></div></td>
+            <td class="num hide-sm pr-model">5.1%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">9</td>
+            <td><span class="pr-team"><span class="code">COL</span>Colombia</span></td>
+            <td class="num">+3300</td>
+            <td class="num"><span class="pr-prob">2.9%</span><div class="pr-bar"><i style="width:13%"></i></div></td>
+            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+          </tr>
+          <tr>
+            <td class="pr-rank">10</td>
+            <td><span class="pr-team"><span class="code">NOR</span>Norway</span></td>
+            <td class="num">+3500</td>
+            <td class="num"><span class="pr-prob">2.8%</span><div class="pr-bar"><i style="width:12%"></i></div></td>
+            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+          </tr>
+          <tr>
+            <td class="pr-rank">11</td>
+            <td><span class="pr-team"><span class="code">USA</span>USA</span></td>
+            <td class="num">+3500</td>
+            <td class="num"><span class="pr-prob">2.8%</span><div class="pr-bar"><i style="width:12%"></i></div></td>
+            <td class="num hide-sm pr-model">2.5%</td>
+          </tr>
+          <tr>
+            <td class="pr-rank">12</td>
+            <td><span class="pr-team"><span class="code">MAR</span>Morocco</span></td>
+            <td class="num">+4000</td>
+            <td class="num"><span class="pr-prob">2.4%</span><div class="pr-bar"><i style="width:11%"></i></div></td>
+            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <p class="pred-foot"><b>Read it carefully.</b> "Market %" is implied from sportsbook odds and includes the book's margin, so the column sums to more than 100% — treat it as relative, not literal. "Model %" is the Opta/SI supercomputer's post-group-stage simulation (true probabilities, published for select sides). Both are estimates and both shift after every result. Market odds: FOX Sports oddsboard, Jun 28. Model: SI/Opta, Jun 28.</p>
@@ -354,11 +751,121 @@
   <div class="wrap">
     <span class="eyebrow">2026 · Group stage</span>
     <h2 class="sec">Final group tables <span class="final-tag">Final · locked</span></h2>
-    <p class="sec-lede">All 12 groups are complete — these tables won't change. Top two from each group qualify automatically (blue), plus the eight best third-placed teams (light blue).</p>
-    <div class="groups reveal" id="grps"></div>
+    <p class="sec-lede">All 12 groups are complete — these tables won't change. Top two from each group qualify automatically (blue), plus the eight best third-placed teams (light blue). Level on points, goal difference decides.</p>
+    <div class="groups reveal">
+
+      <div class="grp"><h3>Group A <small>2 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">MEX</span>Mexico</td><td>3</td><td>0</td><td>0</td><td class="gd">+6</td><td class="pts">9</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">RSA</span>South Africa</td><td>1</td><td>1</td><td>1</td><td class="gd">0</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">3</span><span class="code lite">KOR</span>Korea Rep.</td><td>1</td><td>0</td><td>2</td><td class="gd">−2</td><td class="pts">3</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">CZE</span>Czechia</td><td>0</td><td>1</td><td>2</td><td class="gd">−4</td><td class="pts">1</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group B <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">SUI</span>Switzerland</td><td>2</td><td>1</td><td>0</td><td class="gd">+4</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">CAN</span>Canada</td><td>1</td><td>1</td><td>1</td><td class="gd">+1</td><td class="pts">4</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">BIH</span>Bosnia</td><td>1</td><td>1</td><td>1</td><td class="gd">−1</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">QAT</span>Qatar</td><td>0</td><td>1</td><td>2</td><td class="gd">−4</td><td class="pts">1</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group C <small>2 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">BRA</span>Brazil</td><td>2</td><td>1</td><td>0</td><td class="gd">+5</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">MAR</span>Morocco</td><td>2</td><td>1</td><td>0</td><td class="gd">+3</td><td class="pts">7</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">3</span><span class="code lite">SCO</span>Scotland</td><td>1</td><td>0</td><td>2</td><td class="gd">−2</td><td class="pts">3</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">HTI</span>Haiti</td><td>0</td><td>0</td><td>3</td><td class="gd">−6</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group D <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">USA</span>USA</td><td>2</td><td>0</td><td>1</td><td class="gd">+3</td><td class="pts">6</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">AUS</span>Australia</td><td>1</td><td>1</td><td>1</td><td class="gd">0</td><td class="pts">4</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">PAR</span>Paraguay</td><td>1</td><td>1</td><td>1</td><td class="gd">−1</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">TUR</span>Türkiye</td><td>1</td><td>0</td><td>2</td><td class="gd">−2</td><td class="pts">3</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group E <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">GER</span>Germany</td><td>2</td><td>0</td><td>1</td><td class="gd">+4</td><td class="pts">6</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">CIV</span>Ivory Coast</td><td>2</td><td>0</td><td>1</td><td class="gd">+2</td><td class="pts">6</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">ECU</span>Ecuador</td><td>1</td><td>1</td><td>1</td><td class="gd">0</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">CUW</span>Curaçao</td><td>0</td><td>1</td><td>2</td><td class="gd">−6</td><td class="pts">1</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group F <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">NED</span>Netherlands</td><td>2</td><td>1</td><td>0</td><td class="gd">+5</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">JPN</span>Japan</td><td>1</td><td>2</td><td>0</td><td class="gd">+2</td><td class="pts">5</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">SWE</span>Sweden</td><td>1</td><td>1</td><td>1</td><td class="gd">−1</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">TUN</span>Tunisia</td><td>0</td><td>0</td><td>3</td><td class="gd">−6</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group G <small>2 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">BEL</span>Belgium</td><td>1</td><td>2</td><td>0</td><td class="gd">+2</td><td class="pts">5</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">EGY</span>Egypt</td><td>1</td><td>2</td><td>0</td><td class="gd">+1</td><td class="pts">5</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">3</span><span class="code lite">IRN</span>Iran</td><td>0</td><td>3</td><td>0</td><td class="gd">0</td><td class="pts">3</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">NZL</span>New Zealand</td><td>0</td><td>1</td><td>2</td><td class="gd">−3</td><td class="pts">1</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group H <small>2 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">ESP</span>Spain</td><td>2</td><td>1</td><td>0</td><td class="gd">+6</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">CPV</span>Cape Verde</td><td>0</td><td>3</td><td>0</td><td class="gd">0</td><td class="pts">3</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">3</span><span class="code lite">URU</span>Uruguay</td><td>0</td><td>2</td><td>1</td><td class="gd">−2</td><td class="pts">2</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">KSA</span>Saudi Arabia</td><td>0</td><td>2</td><td>1</td><td class="gd">−4</td><td class="pts">2</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group I <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">FRA</span>France</td><td>3</td><td>0</td><td>0</td><td class="gd">+7</td><td class="pts">9</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">NOR</span>Norway</td><td>2</td><td>0</td><td>1</td><td class="gd">+3</td><td class="pts">6</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">SEN</span>Senegal</td><td>1</td><td>0</td><td>2</td><td class="gd">−3</td><td class="pts">3</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">IRQ</span>Iraq</td><td>0</td><td>0</td><td>3</td><td class="gd">−7</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group J <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">ARG</span>Argentina</td><td>3</td><td>0</td><td>0</td><td class="gd">+8</td><td class="pts">9</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">AUT</span>Austria</td><td>1</td><td>1</td><td>1</td><td class="gd">−1</td><td class="pts">4</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">DZA</span>Algeria</td><td>1</td><td>1</td><td>1</td><td class="gd">−2</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">JOR</span>Jordan</td><td>0</td><td>0</td><td>3</td><td class="gd">−5</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group K <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">COL</span>Colombia</td><td>2</td><td>1</td><td>0</td><td class="gd">+4</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">POR</span>Portugal</td><td>1</td><td>2</td><td>0</td><td class="gd">+2</td><td class="pts">5</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">COD</span>Congo DR</td><td>1</td><td>1</td><td>1</td><td class="gd">0</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">UZB</span>Uzbekistan</td><td>0</td><td>0</td><td>3</td><td class="gd">−6</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+      <div class="grp"><h3>Group L <small>3 through</small></h3>
+        <table class="gt"><thead><tr><th scope="col" class="tm">Team</th><th scope="col">W</th><th scope="col">D</th><th scope="col">L</th><th scope="col" title="Goal difference">GD</th><th scope="col">Pts</th></tr></thead><tbody>
+          <tr class="q"><td class="tm"><span class="pos">1</span><span class="code lite">ENG</span>England</td><td>2</td><td>1</td><td>0</td><td class="gd">+5</td><td class="pts">7</td></tr>
+          <tr class="q"><td class="tm"><span class="pos">2</span><span class="code lite">CRO</span>Croatia</td><td>2</td><td>0</td><td>1</td><td class="gd">+2</td><td class="pts">6</td></tr>
+          <tr class="q3"><td class="tm"><span class="pos">3</span><span class="code lite">GHA</span>Ghana</td><td>1</td><td>1</td><td>1</td><td class="gd">−1</td><td class="pts">4</td></tr>
+          <tr class="out"><td class="tm"><span class="pos">4</span><span class="code lite">PAN</span>Panama</td><td>0</td><td>0</td><td>3</td><td class="gd">−6</td><td class="pts">0</td></tr>
+        </tbody></table>
+      </div>
+
+    </div>
     <div class="legend">
       <span><i style="background:var(--blue)"></i>Qualified — top 2</span>
-      <span><i style="background:#6E84D6"></i>Qualified — best third</span>
+      <span><i style="background:var(--blue-3)"></i>Qualified — best third</span>
       <span><i style="background:var(--line-2)"></i>Eliminated</span>
     </div>
   </div>
@@ -368,16 +875,16 @@
   <div class="wrap">
     <div class="fgrid">
       <div>
-        <h6>About this page</h6>
-        <p>A single, self-contained HTML file tracking the 2026 FIFA World Cup: the all-time scoring record, the Golden Boot race, the Round of 32, the title odds, and the final group tables.</p>
-        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#ff8a93">Live</span> was current as of <b>Jun 28, 2026</b> and will drift as matches are played. Group tables are final. A true live version would need a small backend proxy.</p>
+        <h3>About this page</h3>
+        <p>A single HTML file tracking the 2026 FIFA World Cup: the all-time scoring record, the Golden Boot race, the Round of 32, the title odds, and the final group tables. No build step, no backend — the only external request is the Google Fonts stylesheet.</p>
+        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#ff8a93">Live</span> was current as of <b>Jun 28, 2026</b> and will drift as matches are played. Group tables are final. A true live version would need a small backend proxy.</div>
       </div>
       <div>
-        <h6>Sources</h6>
+        <h3>Sources</h3>
         <p>FIFA · ESPN · Wikipedia (all-time list)<br>Official Round of 32 bracket (Sky / CBS / Yahoo)<br>FOX Sports oddsboard<br>SI / Opta supercomputer model</p>
       </div>
       <div>
-        <h6>Verify before you lean on it</h6>
+        <h3>Verify before you lean on it</h3>
         <p>Live trackers disagree mid-match and lag real time. Cross-check active goal totals and odds against the official FIFA site before quoting them.</p>
       </div>
     </div>
@@ -391,202 +898,13 @@
 <script>
 (function(){
   "use strict";
-
-  /* ---------------- DATA (snapshot: 2026-06-28, end of group stage) ---------------- */
-
-  // All-time WC goals, counting 2026 group stage. status: active players still in the tournament.
-  var allTime = [
-    {r:1, nm:"Lionel Messi",    ct:"Argentina", g:19, active:true,  add:"+6 in 2026"},
-    {r:2, nm:"Kylian Mbappé",   ct:"France",    g:16, active:true,  add:"+4 in 2026"},
-    {r:2, nm:"Miroslav Klose",  ct:"Germany",   g:16, active:false, add:"2002–2014"},
-    {r:4, nm:"Ronaldo",         ct:"Brazil",    g:15, active:false, add:"1998–2006"},
-    {r:5, nm:"Gerd Müller",     ct:"W. Germany",g:14, active:false, add:"1970–1974"},
-    {r:6, nm:"Just Fontaine",   ct:"France",    g:13, active:false, add:"all in 1958"},
-    {r:7, nm:"Pelé",            ct:"Brazil",    g:12, active:false, add:"1958–1970"},
-    {r:8, nm:"Sándor Kocsis",   ct:"Hungary",   g:11, active:false, add:"1954"},
-    {r:8, nm:"Jürgen Klinsmann",ct:"Germany",   g:11, active:false, add:"1990–1998"},
-    {r:8, nm:"Harry Kane",      ct:"England",   g:11, active:true,  add:"+3 in 2026"}
-  ];
-
-  // Golden Boot — 2026 tournament goals only. Ordered by goals, then assists, then fewer minutes.
-  var golden = [
-    {r:1, nm:"Lionel Messi",     ct:"Argentina", g:6, a:0, active:true},
-    {r:2, nm:"Kylian Mbappé",    ct:"France",    g:4, a:2, active:true},
-    {r:2, nm:"Ousmane Dembélé",  ct:"France",    g:4, a:1, active:true},
-    {r:2, nm:"Vinícius Júnior",  ct:"Brazil",    g:4, a:1, active:true},
-    {r:2, nm:"Erling Haaland",   ct:"Norway",    g:4, a:0, active:true},
-    {r:6, nm:"Deniz Undav",      ct:"Germany",   g:3, a:2, active:true},
-    {r:6, nm:"Harry Kane",       ct:"England",   g:3, a:0, active:true},
-    {r:6, nm:"Jonathan David",   ct:"Canada",    g:3, a:0, active:true},
-    {r:6, nm:"Matheus Cunha",    ct:"Brazil",    g:3, a:0, active:true},
-    {r:6, nm:"Brian Brobbey",    ct:"Netherlands",g:3,a:0, active:true}
-  ];
-
-  // Round of 32 — organised into the 4 quarters of the bracket.
-  var r32 = [
-    { q:"Quarter 1", feeds:"Winners → R16 (Houston / Philadelphia)", m:[
-      {a:["CAN","Canada"], b:["RSA","South Africa"], sa:1, sb:0, done:true, info:"Jun 28 · SoFi, LA", res:"Canada advance"},
-      {a:["NED","Netherlands"], b:["MAR","Morocco"], info:"Jun 29 · Monterrey"},
-      {a:["GER","Germany"], b:["PAR","Paraguay"], info:"Jun 29 · Foxborough"},
-      {a:["FRA","France"], b:["SWE","Sweden"], info:"Jun 30 · New Jersey"}
-    ]},
-    { q:"Quarter 2", feeds:"Winners → R16 (Arlington / Seattle)", m:[
-      {a:["ESP","Spain"], b:["AUT","Austria"], info:"Jul 2 · Los Angeles"},
-      {a:["POR","Portugal"], b:["CRO","Croatia"], info:"Jul 2 · Toronto"},
-      {a:["BEL","Belgium"], b:["SEN","Senegal"], info:"Jul 1 · Seattle"},
-      {a:["USA","USA"], b:["BIH","Bosnia"], info:"Jul 1 · Santa Clara"}
-    ]},
-    { q:"Quarter 3", feeds:"Winners → R16 (New Jersey / Mexico City)", m:[
-      {a:["BRA","Brazil"], b:["JPN","Japan"], info:"Jun 29 · Houston"},
-      {a:["CIV","Ivory Coast"], b:["NOR","Norway"], info:"Jun 30 · Arlington"},
-      {a:["MEX","Mexico"], b:["ECU","Ecuador"], info:"Jun 30 · Mexico City"},
-      {a:["ENG","England"], b:["COD","Congo DR"], info:"Jul 1 · Atlanta"}
-    ]},
-    { q:"Quarter 4", feeds:"Winners → R16 (Atlanta / Kansas City)", m:[
-      {a:["AUS","Australia"], b:["EGY","Egypt"], info:"Jul 3 · Arlington"},
-      {a:["ARG","Argentina"], b:["CPV","Cape Verde"], info:"Jul 3 · Miami"},
-      {a:["SUI","Switzerland"], b:["DZA","Algeria"], info:"Jul 2 · Vancouver"},
-      {a:["COL","Colombia"], b:["GHA","Ghana"], info:"Jul 3 · Kansas City"}
-    ]}
-  ];
-
-  // Title odds. odds = American; mkt = implied % from those odds; model = Opta/SI % (null where unpublished).
-  var pred = [
-    {r:1,  nm:"France",      cd:"FRA", odds:"+340", mkt:22.7, model:18.7},
-    {r:2,  nm:"Argentina",   cd:"ARG", odds:"+410", mkt:19.6, model:16.3},
-    {r:3,  nm:"Spain",       cd:"ESP", odds:"+650", mkt:13.3, model:13.5},
-    {r:4,  nm:"England",     cd:"ENG", odds:"+650", mkt:13.3, model:9.7},
-    {r:5,  nm:"Brazil",      cd:"BRA", odds:"+1300",mkt:7.1,  model:6.5},
-    {r:6,  nm:"Portugal",    cd:"POR", odds:"+1500",mkt:6.3,  model:null},
-    {r:7,  nm:"Germany",     cd:"GER", odds:"+1500",mkt:6.3,  model:null},
-    {r:8,  nm:"Netherlands", cd:"NED", odds:"+1800",mkt:5.3,  model:5.1},
-    {r:9,  nm:"Colombia",    cd:"COL", odds:"+3300",mkt:2.9,  model:null},
-    {r:10, nm:"Norway",      cd:"NOR", odds:"+3500",mkt:2.8,  model:null},
-    {r:11, nm:"USA",         cd:"USA", odds:"+3500",mkt:2.8,  model:2.5},
-    {r:12, nm:"Morocco",     cd:"MAR", odds:"+4000",mkt:2.4,  model:null}
-  ];
-
-  // Final group tables. s = 'win' (1st/2nd auto-Q shown blue), 'q3' (best-third Q), 'out'.
-  var groups = {
-    A:[["1","Mexico","MEX",3,0,0,9,"win"],["2","South Africa","RSA",1,1,1,4,"win"],["3","Korea Rep.","KOR",1,0,2,3,"out"],["4","Czechia","CZE",0,1,2,1,"out"]],
-    B:[["1","Switzerland","SUI",2,1,0,7,"win"],["2","Canada","CAN",1,1,1,4,"win"],["3","Bosnia","BIH",1,1,1,4,"q3"],["4","Qatar","QAT",0,1,2,1,"out"]],
-    C:[["1","Brazil","BRA",2,1,0,7,"win"],["2","Morocco","MAR",2,1,0,7,"win"],["3","Scotland","SCO",1,0,2,3,"out"],["4","Haiti","HTI",0,0,3,0,"out"]],
-    D:[["1","USA","USA",2,0,1,6,"win"],["2","Australia","AUS",1,1,1,4,"win"],["3","Paraguay","PAR",1,1,1,4,"q3"],["4","Türkiye","TUR",1,0,2,3,"out"]],
-    E:[["1","Germany","GER",2,0,1,6,"win"],["2","Ivory Coast","CIV",2,0,1,6,"win"],["3","Ecuador","ECU",1,1,1,4,"q3"],["4","Curaçao","CUW",0,1,2,1,"out"]],
-    F:[["1","Netherlands","NED",2,1,0,7,"win"],["2","Japan","JPN",1,2,0,5,"win"],["3","Sweden","SWE",1,1,1,4,"q3"],["4","Tunisia","TUN",0,0,3,0,"out"]],
-    G:[["1","Belgium","BEL",1,2,0,5,"win"],["2","Egypt","EGY",1,2,0,5,"win"],["3","Iran","IRN",0,3,0,3,"out"],["4","New Zealand","NZL",0,1,2,1,"out"]],
-    H:[["1","Spain","ESP",2,1,0,7,"win"],["2","Cape Verde","CPV",0,3,0,3,"win"],["3","Uruguay","URU",0,2,1,2,"out"],["4","Saudi Arabia","KSA",0,2,1,2,"out"]],
-    I:[["1","France","FRA",3,0,0,9,"win"],["2","Norway","NOR",2,0,1,6,"win"],["3","Senegal","SEN",1,0,2,3,"q3"],["4","Iraq","IRQ",0,0,3,0,"out"]],
-    J:[["1","Argentina","ARG",3,0,0,9,"win"],["2","Austria","AUT",1,1,1,4,"win"],["3","Algeria","DZA",1,1,1,4,"q3"],["4","Jordan","JOR",0,0,3,0,"out"]],
-    K:[["1","Colombia","COL",2,1,0,7,"win"],["2","Portugal","POR",1,2,0,5,"win"],["3","Congo DR","COD",1,1,1,4,"q3"],["4","Uzbekistan","UZB",0,0,3,0,"out"]],
-    L:[["1","England","ENG",2,1,0,7,"win"],["2","Croatia","CRO",2,0,1,6,"win"],["3","Ghana","GHA",1,1,1,4,"q3"],["4","Panama","PAN",0,0,3,0,"out"]]
-  };
-
-  /* ---------------- RENDER ---------------- */
-  var $ = function(id){ return document.getElementById(id); };
-  function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-
-  // all-time leaderboard
-  (function(){
-    var maxG = allTime[0].g, html = "";
-    allTime.forEach(function(p){
-      var tag = p.active
-        ? '<span class="lb-tag active">Live · '+esc(p.add)+'</span>'
-        : '<span class="lb-tag retired">'+esc(p.add)+'</span>';
-      html += '<div class="lb-row'+(p.r===1?' top':'')+'">'
-        + '<div class="lb-rank">'+p.r+'</div>'
-        + '<div class="lb-name"><span class="nm">'+esc(p.nm)+'</span>'
-        +   '<span class="ct">'+esc(p.ct)+'</span>'+tag+'</div>'
-        + '<div class="lb-goals">'+p.g+'<span>goals</span></div>'
-        + '</div>';
-    });
-    $("lb").innerHTML = html;
-  })();
-
-  // golden boot
-  (function(){
-    var maxG = golden[0].g, html = "";
-    golden.forEach(function(p){
-      var pct = Math.round((p.g/maxG)*100);
-      html += '<div class="gb-row'+(p.r===1?' lead':'')+'">'
-        + '<div class="gb-rank">'+p.r+'</div>'
-        + '<div class="gb-name"><span class="nm">'+esc(p.nm)+'</span> <span class="ct">'+esc(p.ct)+'</span></div>'
-        + '<div class="gb-bar"><i style="width:'+pct+'%"></i></div>'
-        + '<div class="gb-stat">'+p.g+'<small>'+p.a+' ast</small></div>'
-        + '</div>';
-    });
-    $("gb").innerHTML = html;
-  })();
-
-  // bracket — round of 32
-  (function(){
-    var html = "";
-    r32.forEach(function(qb){
-      html += '<div class="quart"><h4>'+esc(qb.q)+'<span>'+esc(qb.feeds)+'</span></h4>';
-      qb.m.forEach(function(m){
-        var done = !!m.done;
-        var aWin = done && m.sa>m.sb, bWin = done && m.sb>m.sa;
-        function team(t, win, lose, score){
-          return '<div class="mteam'+(win?' win':'')+(lose?' lose':'')+'">'
-            + '<span class="l"><span class="code'+(lose?' lite':'')+'">'+esc(t[0])+'</span>'
-            + '<span class="tn">'+esc(t[1])+'</span></span>'
-            + '<span class="sc">'+(done?score:'–')+'</span></div>';
-        }
-        html += '<div class="match'+(done?' done':'')+'">'
-          + team(m.a, aWin, done&&!aWin, m.sa)
-          + '<div class="mdiv"></div>'
-          + team(m.b, bWin, done&&!bWin, m.sb)
-          + '<div class="minfo"><span>'+esc(m.info)+'</span>'
-          + (done?'<span class="res">'+esc(m.res)+'</span>':'<span>Upcoming</span>')+'</div>'
-          + '</div>';
-      });
-      html += '</div>';
-    });
-    $("r32").innerHTML = html;
-  })();
-
-  // prediction table
-  (function(){
-    var html = "";
-    pred.forEach(function(t){
-      var barW = Math.min(100, Math.round(t.mkt/22.7*100));
-      var model = (t.model===null) ? '<span class="pr-na">—</span>' : t.model.toFixed(1)+'%';
-      html += '<tr'+(t.r===1?' class="fav"':'')+'>'
-        + '<td class="pr-rank">'+t.r+'</td>'
-        + '<td><span class="pr-team"><span class="code">'+esc(t.cd)+'</span>'+esc(t.nm)+'</span></td>'
-        + '<td class="num">'+esc(t.odds)+'</td>'
-        + '<td class="num"><span class="pr-prob">'+t.mkt.toFixed(1)+'%</span><div class="pr-bar"><i style="width:'+barW+'%"></i></div></td>'
-        + '<td class="num hide-sm pr-model">'+model+'</td>'
-        + '</tr>';
-    });
-    $("pred").innerHTML = html;
-  })();
-
-  // group tables
-  (function(){
-    var letters = ["A","B","C","D","E","F","G","H","I","J","K","L"], html = "";
-    letters.forEach(function(L){
-      var qual = groups[L].filter(function(t){return t[7]!=="out";}).length;
-      html += '<div class="grp"><h5>Group '+L+' <small>'+qual+' through</small></h5>'
-        + '<table class="gt"><thead><tr><th class="tm">Team</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr></thead><tbody>';
-      groups[L].forEach(function(t){
-        var cls = t[7]==="win"?"q":(t[7]==="q3"?"q3":"out");
-        html += '<tr class="'+cls+'">'
-          + '<td class="tm"><span class="pos">'+t[0]+'</span><span class="code lite" style="margin-right:7px">'+esc(t[2])+'</span>'+esc(t[1])+'</td>'
-          + '<td>'+t[3]+'</td><td>'+t[4]+'</td><td>'+t[5]+'</td><td class="pts">'+t[6]+'</td></tr>';
-      });
-      html += '</tbody></table></div>';
-    });
-    $("grps").innerHTML = html;
-  })();
-
-  /* ---------------- count-up (hero) ---------------- */
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* count-up (hero) */
   (function(){
     var el = document.querySelector(".feat .num");
-    if(!el) return;
+    if(!el || reduce) return;
     var target = parseInt(el.getAttribute("data-count"),10) || 0;
-    if(reduce){ return; }
     var start = null, dur = 900;
     el.firstChild.nodeValue = "0";
     function step(ts){
@@ -599,18 +917,17 @@
     requestAnimationFrame(step);
   })();
 
-  /* ---------------- scroll reveal ---------------- */
+  /* scroll reveal — progressive enhancement only. Content is fully visible
+     without JS; the .js class (added here, before first paint) is what arms
+     the hidden initial state in CSS. */
   (function(){
-    var els = document.querySelectorAll(".reveal");
-    if(reduce || !("IntersectionObserver" in window)){
-      els.forEach(function(e){ e.classList.add("in"); }); return;
-    }
+    if(reduce || !("IntersectionObserver" in window)) return;
+    document.documentElement.classList.add("js");
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
     }, { threshold: .12 });
-    els.forEach(function(e){ io.observe(e); });
+    document.querySelectorAll(".reveal").forEach(function(e){ io.observe(e); });
   })();
-
 })();
 </script>
 </body>

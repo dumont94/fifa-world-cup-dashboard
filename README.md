@@ -1,15 +1,17 @@
 # 2026 FIFA World Cup Dashboard
 
-A self-contained, single-page dashboard tracking the 2026 FIFA World Cup — built with HTML, CSS, and JavaScript. No frameworks, no build step, no dependencies.
+A single-page dashboard tracking the 2026 FIFA World Cup — built with HTML, CSS, and JavaScript. No frameworks, no build step; the only external request is Google Fonts.
 
 ## Features
 
-- **All-time top scorers** — Golden Boot race with goals, assists, and nationality
-- **Round of 32 bracket** — Full knockout bracket with match results
-- **Title race** — Odds and standings for teams competing for the trophy
-- **Final group tables** — Complete group stage results and standings
-- **Sticky nav** — Jump between sections instantly
-- **Responsive** — Works on desktop and mobile
+- **All-time top scorers** — the record chase, with active players flagged
+- **Golden Boot race** — goals, assists, and nationality for the 2026 leaders
+- **Round of 32 bracket** — full knockout bracket with match results
+- **Title race** — sportsbook odds and model probabilities side by side
+- **Final group tables** — complete group stage standings with goal difference
+- **Static-first** — all content lives in the HTML; JavaScript only adds the count-up and scroll-reveal polish, so the page works with JS disabled and prints cleanly
+- **Dark mode** — follows the system `prefers-color-scheme`
+- **Responsive & accessible** — works on desktop and mobile, semantic tables, WCAG AA contrast, reduced-motion support
 
 ## Stack
 
