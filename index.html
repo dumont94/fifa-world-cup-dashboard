@@ -13,26 +13,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --paper:   #0F1411;
-    --surface: #151C17;
-    --ink:     #EAEEE7;
-    --muted:   #A3B0A4;
-    --faint:   #7E8B80;
-    --line:    #29332B;
-    --line-2:  #1D2620;
-    --blue:    #B5CCAF;
-    --blue-deep:#131B15;
-    --blue-soft:rgba(181,204,175,.12);
-    --blue-3:  #6E8070;
-    --red:     #E2A69F;
-    --red-soft:rgba(226,166,159,.10);
-    --red-line:rgba(226,166,159,.30);
-    --ok:      #8FBF8B;
-    --ok-line: rgba(143,191,139,.30);
+    --paper:   #0C120D;
+    --surface: #121A13;
+    --ink:     #EDF2EA;
+    --muted:   #9FAF9E;
+    --faint:   #78877A;
+    --line:    #263224;
+    --line-2:  #1A241A;
+    --blue:    #8FD37F;
+    --blue-deep:#101911;
+    --blue-soft:rgba(143,211,127,.12);
+    --blue-3:  #5E8A57;
+    --gold:    #D9BC6A;
+    --gold-soft:rgba(217,188,106,.10);
+    --gold-line:rgba(217,188,106,.32);
+    --red:     #E59A92;
+    --red-soft:rgba(229,154,146,.10);
+    --red-line:rgba(229,154,146,.30);
+    --ok:      #8FD37F;
+    --ok-line: rgba(143,211,127,.30);
     --code-bg: rgba(255,255,255,.07);
-    --code-fg: #D7DED4;
-    --on-blue: #10150F;
-    --nav-bg:  rgba(15,20,17,.72);
+    --code-fg: #D8DFD3;
+    --on-blue: #0D140C;
+    --nav-bg:  rgba(12,18,13,.72);
 
     --r-sm: 10px;
     --r-md: 18px;
@@ -55,8 +58,8 @@
   body {
     margin: 0;
     background:
-      radial-gradient(1100px 520px at 85% -12%, rgba(150,180,150,.09), transparent 60%),
-      radial-gradient(900px 480px at -5% 0%, rgba(110,140,130,.07), transparent 55%),
+      radial-gradient(1000px 460px at 92% -14%, rgba(200,235,180,.08), transparent 60%),
+      radial-gradient(1000px 460px at 8% -14%, rgba(200,235,180,.07), transparent 60%),
       var(--paper);
     background-attachment: fixed;
     color: var(--ink);
@@ -109,7 +112,7 @@
   .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-family: var(--f-mono); font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--line); padding: 6px 13px 6px 11px; border-radius: 999px; }
   .eyebrow::before { content:""; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); display: inline-block; }
   h2.sec { font-family: var(--f-disp); font-weight: 600; font-size: clamp(28px, 4vw, 42px); letter-spacing: -.025em; margin: 18px 0 10px; line-height: 1.06; }
-  h2.sec em, .hero h1 .accent { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: #CFE0C8; letter-spacing: 0; font-size: 1.05em; }
+  h2.sec em, .hero h1 .accent { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: #CDEBBE; letter-spacing: 0; font-size: 1.05em; }
   .sec-lede { color: var(--muted); max-width: 62ch; margin: 0 0 32px; font-size: 15.5px; }
 
   /* live badge (hero only) */
@@ -128,15 +131,16 @@
   /* ---------- HERO ---------- */
   header.hero {
     position: relative;
-    padding: 92px 0 96px;
+    padding: 92px 0 150px;
     overflow: hidden;
     background:
-      radial-gradient(1000px 420px at 75% -10%, rgba(170,200,170,.10), transparent 60%),
-      radial-gradient(700px 340px at 5% 10%, rgba(120,150,140,.07), transparent 55%);
+      radial-gradient(900px 480px at 88% -18%, rgba(215,245,190,.10), transparent 62%),
+      radial-gradient(900px 480px at 12% -18%, rgba(215,245,190,.09), transparent 62%);
   }
+  /* pitch markings under the hero, floodlit */
   .ridge { position: absolute; left: 0; right: 0; bottom: -2px; pointer-events: none; }
-  .ridge svg { display: block; width: 100%; height: 190px; }
-  @media (max-width: 880px){ .ridge svg { height: 110px; } }
+  .ridge svg { display: block; width: 100%; height: 210px; }
+  @media (max-width: 880px){ .ridge svg { height: 120px; } }
   .hero .wrap { position: relative; z-index: 1; }
   .hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: center; }
   @media (max-width: 880px){ .hero-grid { grid-template-columns: 1fr; gap: 30px; } }
@@ -146,11 +150,11 @@
   .stamp b { color: var(--ink); font-weight: 600; }
 
   /* featured record card */
-  .feat { background: linear-gradient(160deg, #1C2A20, #141E17 65%, #131C16); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px 28px 26px; position: relative; overflow: hidden; box-shadow: var(--shadow-md); }
-  .feat::after { content:"★"; position: absolute; right: -10px; bottom: -26px; font-size: 150px; color: rgba(234,238,231,.045); line-height: 1; }
+  .feat { background: linear-gradient(160deg, #182A12, #111C0E 65%, #101A0E); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 28px 28px 26px; position: relative; overflow: hidden; box-shadow: var(--shadow-md); }
+  .feat::after { content:"⚽"; position: absolute; right: -14px; bottom: -30px; font-size: 140px; line-height: 1; filter: grayscale(1); opacity: .05; }
   .feat .row1 { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; }
   .feat .badge { font-family: var(--f-mono); font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
-  .feat .badge.rec { background: var(--blue); color: var(--on-blue); }
+  .feat .badge.rec { background: var(--gold); color: #241D0B; }
   .feat .badge.lv { background: var(--red-soft); border: 1px solid var(--red-line); color: var(--red); display: inline-flex; align-items: center; gap: 6px; }
   .feat .badge.lv .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--red); animation: pulse 2.4s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){ .feat .badge.lv .dot { animation: none; } }
@@ -172,8 +176,8 @@
   td.lb-rank { font-size: 16px; }
   tr.top { background: linear-gradient(90deg, rgba(181,204,175,.07), transparent 45%); }
   tr.top td.lb-rank { color: var(--blue); }
-  tr.lead { background: linear-gradient(90deg, rgba(226,166,159,.06), transparent 45%); }
-  tr.lead td.gb-rank { color: var(--red); }
+  tr.lead { background: linear-gradient(90deg, rgba(217,188,106,.07), transparent 45%); }
+  tr.lead td.gb-rank { color: var(--gold); }
   .lb-name, .gb-name { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
   .lb-name .nm { font-family: var(--f-disp); font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; }
   .gb-name .nm { font-family: var(--f-disp); font-weight: 600; font-size: 15.5px; }
@@ -184,7 +188,7 @@
   td.lb-bar-td, td.gb-bar-td { width: 150px; padding-right: 14px; }
   .lb-bar, .gb-bar { display: block; height: 8px; background: rgba(255,255,255,.06); border-radius: 999px; overflow: hidden; }
   .lb-bar i, .gb-bar i { display: block; height: 100%; background: linear-gradient(90deg, rgba(181,204,175,.55), var(--blue)); border-radius: 999px; }
-  tr.lead .gb-bar i { background: linear-gradient(90deg, rgba(226,166,159,.55), var(--red)); }
+  tr.lead .gb-bar i { background: linear-gradient(90deg, rgba(217,188,106,.55), var(--gold)); }
   td.lb-goals { width: 70px; text-align: right; padding-right: 18px; font-family: var(--f-disp); font-weight: 600; font-size: 22px; letter-spacing: -.02em; }
   td.lb-goals span { font-size: 11px; color: var(--faint); font-weight: 500; display: block; line-height: 1; margin-top: 2px; }
   td.gb-stat { width: 70px; text-align: right; padding-right: 18px; font-family: var(--f-disp); font-weight: 600; font-size: 17px; }
@@ -236,13 +240,13 @@
   table.pred thead th { border-top: none; background: rgba(255,255,255,.025); font-family: var(--f-mono); font-size: 10.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
   table.pred th.num, table.pred td.num { text-align: right; font-family: var(--f-mono); }
   table.pred tbody tr:first-child td { border-top: none; }
-  table.pred tbody tr.fav { background: linear-gradient(90deg, rgba(181,204,175,.06), transparent 50%); }
+  table.pred tbody tr.fav { background: linear-gradient(90deg, rgba(217,188,106,.06), transparent 50%); }
   .pr-team { font-family: var(--f-disp); font-weight: 600; font-size: 15px; display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
   .pr-rank { font-family: var(--f-mono); color: var(--faint); font-weight: 600; }
   .pr-prob { font-family: var(--f-mono); font-weight: 600; font-size: 15px; }
   .pr-bar { position: relative; height: 5px; background: rgba(255,255,255,.06); border-radius: 999px; margin-top: 6px; overflow: hidden; max-width: 120px; min-width: 72px; margin-left: auto; }
   .pr-bar i { position: absolute; left: 0; top: 0; height: 100%; background: var(--blue); border-radius: 999px; }
-  tr.fav .pr-bar i { background: var(--red); }
+  tr.fav .pr-bar i { background: var(--gold); }
   .pr-model { color: var(--muted); }
   .pr-na { color: var(--faint); }
   .pred-foot { font-size: 13px; color: var(--faint); margin-top: 16px; }
@@ -323,10 +327,26 @@
 
 <header class="hero">
   <div class="ridge" aria-hidden="true">
-    <svg viewBox="0 0 1440 190" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0 190 L0 120 L180 70 L340 128 L520 48 L700 116 L880 62 L1070 132 L1250 84 L1440 130 L1440 190 Z" fill="#18231B" opacity=".55"/>
-      <path d="M0 190 L0 152 L220 108 L420 156 L640 96 L860 150 L1080 108 L1290 152 L1440 122 L1440 190 Z" fill="#131B15" opacity=".9"/>
-      <path d="M0 190 L0 172 L300 142 L620 176 L940 138 L1240 172 L1440 152 L1440 190 Z" fill="#0F1411"/>
+    <svg viewBox="0 0 1440 210" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#16240F" stop-opacity="0"/>
+          <stop offset="1" stop-color="#14220E" stop-opacity=".9"/>
+        </linearGradient>
+      </defs>
+      <rect x="0" y="0" width="1440" height="210" fill="url(#grass)"/>
+      <!-- mowing stripes -->
+      <rect x="0" y="0" width="180" height="210" fill="#ffffff" opacity=".012"/>
+      <rect x="360" y="0" width="180" height="210" fill="#ffffff" opacity=".012"/>
+      <rect x="720" y="0" width="180" height="210" fill="#ffffff" opacity=".012"/>
+      <rect x="1080" y="0" width="180" height="210" fill="#ffffff" opacity=".012"/>
+      <!-- halfway line + centre circle in perspective -->
+      <line x1="0" y1="64" x2="1440" y2="64" stroke="#E9F2E2" stroke-width="2" opacity=".10"/>
+      <ellipse cx="720" cy="64" rx="190" ry="64" fill="none" stroke="#E9F2E2" stroke-width="2" opacity=".10"/>
+      <circle cx="720" cy="64" r="3.5" fill="#E9F2E2" opacity=".14"/>
+      <!-- corner arcs -->
+      <path d="M0 148 A 96 62 0 0 1 96 210" fill="none" stroke="#E9F2E2" stroke-width="2" opacity=".07"/>
+      <path d="M1440 148 A 96 62 0 0 0 1344 210" fill="none" stroke="#E9F2E2" stroke-width="2" opacity=".07"/>
     </svg>
   </div>
   <div class="wrap hero-grid">
@@ -878,7 +898,7 @@
       <div>
         <h3>About this page</h3>
         <p>A single HTML file tracking the 2026 FIFA World Cup: the all-time scoring record, the Golden Boot race, the Round of 32, the title odds, and the final group tables. No build step, no backend — the only external request is the Google Fonts stylesheet.</p>
-        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#E2A69F">Live</span> was current as of <b>Jun 28, 2026</b> and will drift as matches are played. Group tables are final. A true live version would need a small backend proxy.</div>
+        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#E59A92">Live</span> was current as of <b>Jun 28, 2026</b> and will drift as matches are played. Group tables are final. A true live version would need a small backend proxy.</div>
       </div>
       <div>
         <h3>Sources</h3>
