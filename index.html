@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>World Cup 26 — All-Time Scorers, Bracket & Title Race</title>
-<meta name="description" content="A live snapshot of the 2026 FIFA World Cup: all-time goalscoring leaders, the Golden Boot race, the Round of 32 bracket, title odds, and final group tables." />
+<meta name="description" content="A live snapshot of the 2026 FIFA World Cup: all-time goalscoring leaders, the Golden Boot race, the full knockout bracket through the semi-finals, final odds, and group tables." />
 <meta name="color-scheme" content="light dark" />
 <meta name="theme-color" content="#F4F6FA" media="(prefers-color-scheme: light)" />
 <meta name="theme-color" content="#0C1322" media="(prefers-color-scheme: dark)" />
@@ -227,17 +227,17 @@
   .minfo { font-family: var(--f-mono); font-size: 10.5px; color: var(--faint); margin-top: 7px; display: flex; justify-content: space-between; gap: 8px; }
   .minfo .res { color: var(--ok); font-weight: 700; }
 
-  /* path to final */
+  /* later rounds */
   .path-title { font-family: var(--f-mono); font-size: 11px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); margin: 30px 0 14px; }
-  .path { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; align-items: stretch; }
-  @media (max-width: 680px){ .path { grid-template-columns: repeat(2,1fr); } }
-  .pcol { text-align: center; }
-  .pcol .lab { font-family: var(--f-mono); font-size: 10.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
-  .pcol .slot { background: var(--surface); border: 1px dashed var(--line); border-radius: var(--r-sm); padding: 10px 8px; font-family: var(--f-mono); font-size: 11px; color: var(--faint); margin-bottom: 8px; }
-  .pcol.fin .slot { border: 1px solid var(--blue); color: var(--blue); font-weight: 700; background: var(--blue-soft); }
-  .pcol .cnt { font-family: var(--f-disp); font-weight: 900; font-size: 30px; color: var(--ink); line-height: 1; }
-  .pcol .cnt small { display:block; font-size: 10px; font-family: var(--f-mono); color: var(--faint); font-weight: 600; letter-spacing: .05em; margin-top: 4px; text-transform: uppercase; }
-  .pcol.fin .cnt { color: var(--blue); }
+  .rgrid { display: grid; gap: 12px; }
+  .rgrid.c4 { grid-template-columns: repeat(4, 1fr); }
+  .rgrid.c2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 900px){ .rgrid.c4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px){ .rgrid.c4, .rgrid.c2 { grid-template-columns: 1fr; } }
+  .rgrid .match { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-sm); margin-bottom: 0; }
+  .rgrid .match.done { border-color: var(--ok-line); }
+  .match.fin { border: 1px solid var(--blue); background: linear-gradient(90deg, rgba(31,63,191,.06), transparent); }
+  .match.fin .minfo span:last-child { color: var(--blue); font-weight: 700; }
 
   /* ---------- prediction table ---------- */
   .tablewrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow-x: auto; box-shadow: var(--shadow-sm); }
@@ -332,10 +332,10 @@
     <div>
       <span class="eyebrow">All-time · Men's World Cup</span>
       <h1>The all-time list has a <span class="accent">new name.</span></h1>
-      <p class="sub">For the first time in over a decade, the record for most World Cup goals belongs to someone other than Miroslav Klose — and two of the men chasing him are still on the pitch in 2026.</p>
+      <p class="sub">For the first time in over a decade, the record for most World Cup goals belongs to someone other than Miroslav Klose. Kylian Mbappé is one goal behind with a match still to play — and Harry Kane has just joined Gerd Müller on 14.</p>
       <div class="stamp">
         <span class="live"><span class="dot" aria-hidden="true"></span>Live snapshot</span>
-        <span>Captured <b>Jun 28, 2026</b> · end of group stage</span>
+        <span>Captured <b>Jul 15, 2026</b> · after the semi-finals</span>
       </div>
     </div>
     <div class="feat" aria-label="Record holder">
@@ -343,10 +343,10 @@
         <span class="badge rec">★ All-time record</span>
         <span class="badge lv"><span class="dot" aria-hidden="true"></span>Live</span>
       </div>
-      <div class="num" data-count="19">19<small>goals</small></div>
+      <div class="num" data-count="21">21<small>goals</small></div>
       <div class="who">Lionel Messi</div>
-      <div class="meta">Argentina · 6 WC tournaments · 29 matches</div>
-      <div class="ctx">Passed Klose (16) during the group stage — a hat-trick vs. Algeria, a brace vs. Austria, one more vs. Jordan. <b>Still active:</b> Argentina face Cape Verde in the Round of 32 on Jul 3, so this number can still climb.</div>
+      <div class="meta">Argentina · 6 WC tournaments · 33 matches</div>
+      <div class="ctx">Passed Klose (16) in the group stage and hasn't slowed — 8 goals and 4 assists in 2026, including both assists in the semi-final win over England. <b>One match left:</b> Argentina meet Spain in the final on Jul 19, so this number can still climb.</div>
     </div>
   </div>
 </header>
@@ -356,75 +356,75 @@
   <div class="wrap">
     <span class="eyebrow">The ranking</span>
     <h2 class="sec">All-time goalscoring leaders</h2>
-    <p class="sec-lede">Every player with 11+ career World Cup goals, counting the 2026 tournament through the group stage. Three of them are active and climbing right now — flagged below.</p>
+    <p class="sec-lede">Every player with 11+ career World Cup goals, counting the 2026 tournament through the semi-finals. Messi plays the final on Jul 19; Mbappé and Kane get the third-place match — all three can still add.</p>
     <div class="board reveal">
       <table class="lb">
         <thead class="sr-only"><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Share of record</th><th scope="col">Goals</th></tr></thead>
         <tbody>
           <tr class="top">
             <td class="lb-rank">1</td>
-            <td><span class="lb-name"><span class="nm">Lionel Messi</span><span class="ct">Argentina</span><span class="lb-tag active">Live · +6 in 2026</span></span></td>
+            <td><span class="lb-name"><span class="nm">Lionel Messi</span><span class="ct">Argentina</span><span class="lb-tag active">Live · +8 in 2026</span></span></td>
             <td class="lb-bar-td"><span class="lb-bar"><i style="width:100%"></i></span></td>
-            <td class="lb-goals">19<span>goals</span></td>
+            <td class="lb-goals">21<span>goals</span></td>
           </tr>
           <tr>
             <td class="lb-rank">2</td>
-            <td><span class="lb-name"><span class="nm">Kylian Mbappé</span><span class="ct">France</span><span class="lb-tag active">Live · +4 in 2026</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:84%"></i></span></td>
-            <td class="lb-goals">16<span>goals</span></td>
+            <td><span class="lb-name"><span class="nm">Kylian Mbappé</span><span class="ct">France</span><span class="lb-tag active">Live · +8 in 2026</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:95%"></i></span></td>
+            <td class="lb-goals">20<span>goals</span></td>
           </tr>
           <tr>
-            <td class="lb-rank">2</td>
+            <td class="lb-rank">3</td>
             <td><span class="lb-name"><span class="nm">Miroslav Klose</span><span class="ct">Germany</span><span class="lb-tag retired">2002–2014</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:84%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:76%"></i></span></td>
             <td class="lb-goals">16<span>goals</span></td>
           </tr>
           <tr>
             <td class="lb-rank">4</td>
             <td><span class="lb-name"><span class="nm">Ronaldo</span><span class="ct">Brazil</span><span class="lb-tag retired">1998–2006</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:79%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:71%"></i></span></td>
             <td class="lb-goals">15<span>goals</span></td>
           </tr>
           <tr>
             <td class="lb-rank">5</td>
             <td><span class="lb-name"><span class="nm">Gerd Müller</span><span class="ct">W. Germany</span><span class="lb-tag retired">1970–1974</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:74%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:67%"></i></span></td>
             <td class="lb-goals">14<span>goals</span></td>
           </tr>
           <tr>
-            <td class="lb-rank">6</td>
-            <td><span class="lb-name"><span class="nm">Just Fontaine</span><span class="ct">France</span><span class="lb-tag retired">all in 1958</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:68%"></i></span></td>
-            <td class="lb-goals">13<span>goals</span></td>
+            <td class="lb-rank">5</td>
+            <td><span class="lb-name"><span class="nm">Harry Kane</span><span class="ct">England</span><span class="lb-tag active">Live · +6 in 2026</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:67%"></i></span></td>
+            <td class="lb-goals">14<span>goals</span></td>
           </tr>
           <tr>
             <td class="lb-rank">7</td>
+            <td><span class="lb-name"><span class="nm">Just Fontaine</span><span class="ct">France</span><span class="lb-tag retired">all in 1958</span></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:62%"></i></span></td>
+            <td class="lb-goals">13<span>goals</span></td>
+          </tr>
+          <tr>
+            <td class="lb-rank">8</td>
             <td><span class="lb-name"><span class="nm">Pelé</span><span class="ct">Brazil</span><span class="lb-tag retired">1958–1970</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:63%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:57%"></i></span></td>
             <td class="lb-goals">12<span>goals</span></td>
           </tr>
           <tr>
-            <td class="lb-rank">8</td>
+            <td class="lb-rank">9</td>
             <td><span class="lb-name"><span class="nm">Sándor Kocsis</span><span class="ct">Hungary</span><span class="lb-tag retired">1954</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:52%"></i></span></td>
             <td class="lb-goals">11<span>goals</span></td>
           </tr>
           <tr>
-            <td class="lb-rank">8</td>
+            <td class="lb-rank">9</td>
             <td><span class="lb-name"><span class="nm">Jürgen Klinsmann</span><span class="ct">Germany</span><span class="lb-tag retired">1990–1998</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
-            <td class="lb-goals">11<span>goals</span></td>
-          </tr>
-          <tr>
-            <td class="lb-rank">8</td>
-            <td><span class="lb-name"><span class="nm">Harry Kane</span><span class="ct">England</span><span class="lb-tag active">Live · +3 in 2026</span></span></td>
-            <td class="lb-bar-td"><span class="lb-bar"><i style="width:58%"></i></span></td>
+            <td class="lb-bar-td"><span class="lb-bar"><i style="width:52%"></i></span></td>
             <td class="lb-goals">11<span>goals</span></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="gb-foot">Active totals (Messi, Mbappé, Kane) move with every match they play. Retired players' totals are fixed. Several players sit just outside this list on 10 goals — Lineker, Batistuta, T. Müller, Cubillas.</p>
+    <p class="gb-foot">Active totals (Messi, Mbappé, Kane) can still move — one match each remains. Retired players' totals are fixed. Mbappé reached 20 in just 20 matches, the fastest ever; Messi's 21 have come across six tournaments.</p>
   </div>
 </section>
 
@@ -433,7 +433,7 @@
   <div class="wrap">
     <span class="eyebrow">2026 · Golden Boot race</span>
     <h2 class="sec">Who's winning the Boot</h2>
-    <p class="sec-lede">Goals scored in this tournament only. Messi leads outright; four players are knotted behind him, separated by the official tiebreaker — assists first, then fewest minutes played.</p>
+    <p class="sec-lede">Goals scored in this tournament only. Messi and Mbappé are level on eight — Messi's two assists in the semi-final win over England put him ahead on the tiebreaker. Mbappé, Kane and Bellingham can still add in the third-place match; Messi and Oyarzabal get the final.</p>
     <div class="board reveal">
       <table class="gb">
         <thead class="sr-only"><tr><th scope="col">Rank</th><th scope="col">Player</th><th scope="col">Share of lead</th><th scope="col">Goals and assists</th></tr></thead>
@@ -442,66 +442,66 @@
             <td class="gb-rank">1</td>
             <td><span class="gb-name"><span class="nm">Lionel Messi</span><span class="ct">Argentina</span></span></td>
             <td class="gb-bar-td"><span class="gb-bar"><i style="width:100%"></i></span></td>
-            <td class="gb-stat">6<small>0 ast</small></td>
+            <td class="gb-stat">8<small>4 ast</small></td>
           </tr>
           <tr>
             <td class="gb-rank">2</td>
             <td><span class="gb-name"><span class="nm">Kylian Mbappé</span><span class="ct">France</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
-            <td class="gb-stat">4<small>2 ast</small></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:100%"></i></span></td>
+            <td class="gb-stat">8<small>3 ast</small></td>
           </tr>
           <tr>
-            <td class="gb-rank">2</td>
-            <td><span class="gb-name"><span class="nm">Ousmane Dembélé</span><span class="ct">France</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
-            <td class="gb-stat">4<small>1 ast</small></td>
-          </tr>
-          <tr>
-            <td class="gb-rank">2</td>
-            <td><span class="gb-name"><span class="nm">Vinícius Júnior</span><span class="ct">Brazil</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
-            <td class="gb-stat">4<small>1 ast</small></td>
-          </tr>
-          <tr>
-            <td class="gb-rank">2</td>
+            <td class="gb-rank">3</td>
             <td><span class="gb-name"><span class="nm">Erling Haaland</span><span class="ct">Norway</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:67%"></i></span></td>
-            <td class="gb-stat">4<small>0 ast</small></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:88%"></i></span></td>
+            <td class="gb-stat">7<small>—</small></td>
           </tr>
           <tr>
-            <td class="gb-rank">6</td>
-            <td><span class="gb-name"><span class="nm">Deniz Undav</span><span class="ct">Germany</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
-            <td class="gb-stat">3<small>2 ast</small></td>
-          </tr>
-          <tr>
-            <td class="gb-rank">6</td>
+            <td class="gb-rank">4</td>
             <td><span class="gb-name"><span class="nm">Harry Kane</span><span class="ct">England</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
-            <td class="gb-stat">3<small>0 ast</small></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:75%"></i></span></td>
+            <td class="gb-stat">6<small>1 ast</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">4</td>
+            <td><span class="gb-name"><span class="nm">Jude Bellingham</span><span class="ct">England</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:75%"></i></span></td>
+            <td class="gb-stat">6<small>1 ast</small></td>
           </tr>
           <tr>
             <td class="gb-rank">6</td>
-            <td><span class="gb-name"><span class="nm">Jonathan David</span><span class="ct">Canada</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
-            <td class="gb-stat">3<small>0 ast</small></td>
+            <td><span class="gb-name"><span class="nm">Mikel Oyarzabal</span><span class="ct">Spain</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:63%"></i></span></td>
+            <td class="gb-stat">5<small>—</small></td>
           </tr>
           <tr>
             <td class="gb-rank">6</td>
-            <td><span class="gb-name"><span class="nm">Matheus Cunha</span><span class="ct">Brazil</span></span></td>
-            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
-            <td class="gb-stat">3<small>0 ast</small></td>
+            <td><span class="gb-name"><span class="nm">Ousmane Dembélé</span><span class="ct">France</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:63%"></i></span></td>
+            <td class="gb-stat">5<small>—</small></td>
           </tr>
           <tr>
-            <td class="gb-rank">6</td>
-            <td><span class="gb-name"><span class="nm">Brian Brobbey</span><span class="ct">Netherlands</span></span></td>
+            <td class="gb-rank">8</td>
+            <td><span class="gb-name"><span class="nm">Ismaïla Sarr</span><span class="ct">Senegal</span></span></td>
             <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
-            <td class="gb-stat">3<small>0 ast</small></td>
+            <td class="gb-stat">4<small>—</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">8</td>
+            <td><span class="gb-name"><span class="nm">Julián Quiñones</span><span class="ct">Mexico</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">4<small>—</small></td>
+          </tr>
+          <tr>
+            <td class="gb-rank">8</td>
+            <td><span class="gb-name"><span class="nm">Vinícius Júnior</span><span class="ct">Brazil</span></span></td>
+            <td class="gb-bar-td"><span class="gb-bar"><i style="width:50%"></i></span></td>
+            <td class="gb-stat">4<small>—</small></td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="gb-foot">Tiebreak order: most goals → most assists → fewest minutes. Behind the top group, a crowd sits on 2 — including Cristiano Ronaldo (brace vs. Uzbekistan), Kai Havertz, Cody Gakpo and USA's Folarin Balogun.</p>
+    <p class="gb-foot">Tiebreak order: most goals → most assists → fewest minutes. Assist counts shown where published — full assist data isn't released for every player. Group-stage leaders who faded: Vinícius Júnior stayed on 4 after Brazil's Round-of-16 exit.</p>
   </div>
 </section>
 
@@ -509,8 +509,9 @@
 <section id="bracket">
   <div class="wrap">
     <span class="eyebrow">2026 · Knockout stage</span>
-    <h2 class="sec">Round of 32 <span class="final-tag">In progress</span></h2>
-    <p class="sec-lede">The first 48-team World Cup adds a Round of 32: the 12 group winners and 12 runners-up join the 8 best third-placed teams. One match is done — Canada knocked out South Africa. The rest run through Jul 3.</p>
+    <h2 class="sec">The knockout rounds <span class="final-tag">Final · Jul 19</span></h2>
+    <p class="sec-lede">The first 48-team World Cup added a Round of 32 — and it's all played out. Four rounds are in the books: defending champions Argentina and an unbeaten Spain meet in the final at MetLife on Jul 19, while France and England contest the bronze.</p>
+    <div class="path-title">Round of 32 · Jun 28 – Jul 3</div>
     <div class="quarters reveal">
 
       <div class="quart">
@@ -521,118 +522,222 @@
           <div class="mteam lose"><span class="l"><span class="code lite">RSA</span><span class="tn">South Africa</span></span><span class="sc">0</span></div>
           <div class="minfo"><span>Jun 28 · SoFi, LA</span><span class="res">Canada advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">NED</span><span class="tn">Netherlands</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam lose"><span class="l"><span class="code lite">NED</span><span class="tn">Netherlands</span></span><span class="sc">1</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">MAR</span><span class="tn">Morocco</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 29 · Monterrey</span><span>Upcoming</span></div>
+          <div class="mteam win"><span class="l"><span class="code">MAR</span><span class="tn">Morocco</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jun 29 · Monterrey</span><span class="res">Morocco win 3–2 on pens</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">GER</span><span class="tn">Germany</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam lose"><span class="l"><span class="code lite">GER</span><span class="tn">Germany</span></span><span class="sc">1</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">PAR</span><span class="tn">Paraguay</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 29 · Foxborough</span><span>Upcoming</span></div>
+          <div class="mteam win"><span class="l"><span class="code">PAR</span><span class="tn">Paraguay</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jun 29 · Foxborough</span><span class="res">Paraguay win 4–3 on pens</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">3</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">SWE</span><span class="tn">Sweden</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 30 · New Jersey</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">SWE</span><span class="tn">Sweden</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jun 30 · New Jersey</span><span class="res">France advance</span></div>
         </div>
       </div>
 
       <div class="quart">
         <h3>Quarter 2<span>Winners → R16 (Arlington / Seattle)</span></h3>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">3</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">AUT</span><span class="tn">Austria</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 2 · Los Angeles</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">AUT</span><span class="tn">Austria</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jul 2 · Los Angeles</span><span class="res">Spain advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">POR</span><span class="tn">Portugal</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">POR</span><span class="tn">Portugal</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">CRO</span><span class="tn">Croatia</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 2 · Toronto</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">CRO</span><span class="tn">Croatia</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jul 2 · Toronto</span><span class="res">Portugal advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">BEL</span><span class="tn">Belgium</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">BEL</span><span class="tn">Belgium</span></span><span class="sc">3</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">SEN</span><span class="tn">Senegal</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 1 · Seattle</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">SEN</span><span class="tn">Senegal</span></span><span class="sc">2</span></div>
+          <div class="minfo"><span>Jul 1 · Seattle</span><span class="res">Belgium advance · aet</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">USA</span><span class="tn">USA</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">USA</span><span class="tn">USA</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">BIH</span><span class="tn">Bosnia</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 1 · Santa Clara</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">BIH</span><span class="tn">Bosnia</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jul 1 · Santa Clara</span><span class="res">USA advance</span></div>
         </div>
       </div>
 
       <div class="quart">
         <h3>Quarter 3<span>Winners → R16 (New Jersey / Mexico City)</span></h3>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">BRA</span><span class="tn">Brazil</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">BRA</span><span class="tn">Brazil</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">JPN</span><span class="tn">Japan</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 29 · Houston</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">JPN</span><span class="tn">Japan</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jun 29 · Houston</span><span class="res">Brazil advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">CIV</span><span class="tn">Ivory Coast</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam lose"><span class="l"><span class="code lite">CIV</span><span class="tn">Ivory Coast</span></span><span class="sc">1</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">NOR</span><span class="tn">Norway</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 30 · Arlington</span><span>Upcoming</span></div>
+          <div class="mteam win"><span class="l"><span class="code">NOR</span><span class="tn">Norway</span></span><span class="sc">2</span></div>
+          <div class="minfo"><span>Jun 30 · Arlington</span><span class="res">Norway advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">MEX</span><span class="tn">Mexico</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">MEX</span><span class="tn">Mexico</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">ECU</span><span class="tn">Ecuador</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jun 30 · Mexico City</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">ECU</span><span class="tn">Ecuador</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jun 30 · Mexico City</span><span class="res">Mexico advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">COD</span><span class="tn">Congo DR</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 1 · Atlanta</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">COD</span><span class="tn">Congo DR</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jul 1 · Atlanta</span><span class="res">England advance</span></div>
         </div>
       </div>
 
       <div class="quart">
         <h3>Quarter 4<span>Winners → R16 (Atlanta / Kansas City)</span></h3>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">AUS</span><span class="tn">Australia</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam lose"><span class="l"><span class="code lite">AUS</span><span class="tn">Australia</span></span><span class="sc">1</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">EGY</span><span class="tn">Egypt</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 3 · Arlington</span><span>Upcoming</span></div>
+          <div class="mteam win"><span class="l"><span class="code">EGY</span><span class="tn">Egypt</span></span><span class="sc">1</span></div>
+          <div class="minfo"><span>Jul 3 · Arlington</span><span class="res">Egypt win 4–2 on pens</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">3</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">CPV</span><span class="tn">Cape Verde</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 3 · Miami</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">CPV</span><span class="tn">Cape Verde</span></span><span class="sc">2</span></div>
+          <div class="minfo"><span>Jul 3 · Miami</span><span class="res">Argentina advance · aet</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">SUI</span><span class="tn">Switzerland</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">SUI</span><span class="tn">Switzerland</span></span><span class="sc">2</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">DZA</span><span class="tn">Algeria</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 2 · Vancouver</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">DZA</span><span class="tn">Algeria</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jul 2 · Vancouver</span><span class="res">Switzerland advance</span></div>
         </div>
-        <div class="match">
-          <div class="mteam"><span class="l"><span class="code">COL</span><span class="tn">Colombia</span></span><span class="sc">–</span></div>
+        <div class="match done">
+          <div class="mteam win"><span class="l"><span class="code">COL</span><span class="tn">Colombia</span></span><span class="sc">1</span></div>
           <div class="mdiv"></div>
-          <div class="mteam"><span class="l"><span class="code">GHA</span><span class="tn">Ghana</span></span><span class="sc">–</span></div>
-          <div class="minfo"><span>Jul 3 · Kansas City</span><span>Upcoming</span></div>
+          <div class="mteam lose"><span class="l"><span class="code lite">GHA</span><span class="tn">Ghana</span></span><span class="sc">0</span></div>
+          <div class="minfo"><span>Jul 3 · Kansas City</span><span class="res">Colombia advance</span></div>
         </div>
       </div>
 
     </div>
 
-    <div class="path-title">Path to the final — everything past the Round of 32 is still to be decided</div>
-    <div class="path reveal">
-      <div class="pcol"><div class="lab">Round of 16</div><div class="cnt">16<small>teams</small></div><div class="slot">8 matches</div><div class="slot">Jul 4–7</div></div>
-      <div class="pcol"><div class="lab">Quarter-finals</div><div class="cnt">8<small>teams</small></div><div class="slot">4 matches</div><div class="slot">Jul 9–11</div></div>
-      <div class="pcol"><div class="lab">Semi-finals</div><div class="cnt">4<small>teams</small></div><div class="slot">2 matches</div><div class="slot">Jul 14–15</div></div>
-      <div class="pcol fin"><div class="lab">Final</div><div class="cnt">2<small>teams</small></div><div class="slot">Jul 19 · MetLife, NJ</div><div class="slot">Champion TBD</div></div>
+    <div class="path-title">Round of 16 · Jul 4–7 — all three co-hosts fell here</div>
+    <div class="rgrid c4 reveal">
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">MAR</span><span class="tn">Morocco</span></span><span class="sc">3</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">CAN</span><span class="tn">Canada</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Morocco advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">1</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">PAR</span><span class="tn">Paraguay</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">France advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">1</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">POR</span><span class="tn">Portugal</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Spain advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">BEL</span><span class="tn">Belgium</span></span><span class="sc">4</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">USA</span><span class="tn">USA</span></span><span class="sc">1</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Belgium advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">NOR</span><span class="tn">Norway</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">BRA</span><span class="tn">Brazil</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Norway advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">3</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">MEX</span><span class="tn">Mexico</span></span><span class="sc">2</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">England advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">3</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">EGY</span><span class="tn">Egypt</span></span><span class="sc">2</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Argentina advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">SUI</span><span class="tn">Switzerland</span></span><span class="sc">0</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">COL</span><span class="tn">Colombia</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Round of 16</span><span class="res">Switzerland win 4–3 on pens</span></div>
+      </div>
+    </div>
+
+    <div class="path-title">Quarter-finals · Jul 9–11</div>
+    <div class="rgrid c4 reveal">
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">MAR</span><span class="tn">Morocco</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Jul 9</span><span class="res">France advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">BEL</span><span class="tn">Belgium</span></span><span class="sc">1</span></div>
+        <div class="minfo"><span>Jul 10</span><span class="res">Spain advance</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">NOR</span><span class="tn">Norway</span></span><span class="sc">1</span></div>
+        <div class="minfo"><span>Jul 11</span><span class="res">England advance · aet</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">3</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">SUI</span><span class="tn">Switzerland</span></span><span class="sc">1</span></div>
+        <div class="minfo"><span>Jul 11</span><span class="res">Argentina advance · aet</span></div>
+      </div>
+    </div>
+
+    <div class="path-title">Semi-finals · Jul 14–15</div>
+    <div class="rgrid c2 reveal">
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">FRA</span><span class="tn">France</span></span><span class="sc">0</span></div>
+        <div class="minfo"><span>Jul 14 · Arlington</span><span class="res">Spain in the final</span></div>
+      </div>
+      <div class="match done">
+        <div class="mteam win"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">2</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam lose"><span class="l"><span class="code lite">ENG</span><span class="tn">England</span></span><span class="sc">1</span></div>
+        <div class="minfo"><span>Jul 15 · Atlanta</span><span class="res">Argentina in the final</span></div>
+      </div>
+    </div>
+
+    <div class="path-title">What's left</div>
+    <div class="rgrid c2 reveal">
+      <div class="match fin">
+        <div class="mteam"><span class="l"><span class="code">ARG</span><span class="tn">Argentina</span></span><span class="sc">–</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam"><span class="l"><span class="code">ESP</span><span class="tn">Spain</span></span><span class="sc">–</span></div>
+        <div class="minfo"><span>Jul 19 · MetLife, NJ</span><span>The final</span></div>
+      </div>
+      <div class="match">
+        <div class="mteam"><span class="l"><span class="code">FRA</span><span class="tn">France</span></span><span class="sc">–</span></div>
+        <div class="mdiv"></div>
+        <div class="mteam"><span class="l"><span class="code">ENG</span><span class="tn">England</span></span><span class="sc">–</span></div>
+        <div class="minfo"><span>Jul 18</span><span>Third place</span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -641,8 +746,8 @@
 <section id="title">
   <div class="wrap">
     <span class="eyebrow">2026 · Most likely to win</span>
-    <h2 class="sec">Title race</h2>
-    <p class="sec-lede">Two readings side by side: the betting market (sportsbook odds, converted to an implied chance) and the Opta supercomputer's model. They agree on the top four. France overtook pre-tournament favourite Spain after a perfect group stage; defending champ Argentina sits second on a kind bracket draw. Both readings move after every match.</p>
+    <h2 class="sec">Title race <span class="final-tag">2 teams left</span></h2>
+    <p class="sec-lede">Down to two. Spain opened as the bookmakers' favourite for the Jul 19 final on the back of an unbeaten run, even against defending champions Argentina, who are chasing back-to-back titles. Two readings side by side: the sportsbook moneyline (converted to an implied chance) and the Kalshi prediction-market price.</p>
     <div class="tablewrap reveal">
       <table class="pred">
         <thead>
@@ -651,98 +756,28 @@
             <th scope="col">Team</th>
             <th scope="col" class="num"><span class="lg-only">Market </span>odds</th>
             <th scope="col" class="num">Market %</th>
-            <th scope="col" class="num hide-sm">Model %</th>
+            <th scope="col" class="num hide-sm">Kalshi %</th>
           </tr>
         </thead>
         <tbody>
           <tr class="fav">
             <td class="pr-rank">1</td>
-            <td><span class="pr-team"><span class="code">FRA</span>France</span></td>
-            <td class="num">+340</td>
-            <td class="num"><span class="pr-prob">22.7%</span><div class="pr-bar"><i style="width:100%"></i></div></td>
-            <td class="num hide-sm pr-model">18.7%</td>
+            <td><span class="pr-team"><span class="code">ESP</span>Spain</span></td>
+            <td class="num">−160</td>
+            <td class="num"><span class="pr-prob">61.5%</span><div class="pr-bar"><i style="width:100%"></i></div></td>
+            <td class="num hide-sm pr-model">58.3%</td>
           </tr>
           <tr>
             <td class="pr-rank">2</td>
             <td><span class="pr-team"><span class="code">ARG</span>Argentina</span></td>
-            <td class="num">+410</td>
-            <td class="num"><span class="pr-prob">19.6%</span><div class="pr-bar"><i style="width:86%"></i></div></td>
-            <td class="num hide-sm pr-model">16.3%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">3</td>
-            <td><span class="pr-team"><span class="code">ESP</span>Spain</span></td>
-            <td class="num">+650</td>
-            <td class="num"><span class="pr-prob">13.3%</span><div class="pr-bar"><i style="width:59%"></i></div></td>
-            <td class="num hide-sm pr-model">13.5%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">4</td>
-            <td><span class="pr-team"><span class="code">ENG</span>England</span></td>
-            <td class="num">+650</td>
-            <td class="num"><span class="pr-prob">13.3%</span><div class="pr-bar"><i style="width:59%"></i></div></td>
-            <td class="num hide-sm pr-model">9.7%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">5</td>
-            <td><span class="pr-team"><span class="code">BRA</span>Brazil</span></td>
-            <td class="num">+1300</td>
-            <td class="num"><span class="pr-prob">7.1%</span><div class="pr-bar"><i style="width:31%"></i></div></td>
-            <td class="num hide-sm pr-model">6.5%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">6</td>
-            <td><span class="pr-team"><span class="code">POR</span>Portugal</span></td>
-            <td class="num">+1500</td>
-            <td class="num"><span class="pr-prob">6.3%</span><div class="pr-bar"><i style="width:28%"></i></div></td>
-            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
-          </tr>
-          <tr>
-            <td class="pr-rank">7</td>
-            <td><span class="pr-team"><span class="code">GER</span>Germany</span></td>
-            <td class="num">+1500</td>
-            <td class="num"><span class="pr-prob">6.3%</span><div class="pr-bar"><i style="width:28%"></i></div></td>
-            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
-          </tr>
-          <tr>
-            <td class="pr-rank">8</td>
-            <td><span class="pr-team"><span class="code">NED</span>Netherlands</span></td>
-            <td class="num">+1800</td>
-            <td class="num"><span class="pr-prob">5.3%</span><div class="pr-bar"><i style="width:23%"></i></div></td>
-            <td class="num hide-sm pr-model">5.1%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">9</td>
-            <td><span class="pr-team"><span class="code">COL</span>Colombia</span></td>
-            <td class="num">+3300</td>
-            <td class="num"><span class="pr-prob">2.9%</span><div class="pr-bar"><i style="width:13%"></i></div></td>
-            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
-          </tr>
-          <tr>
-            <td class="pr-rank">10</td>
-            <td><span class="pr-team"><span class="code">NOR</span>Norway</span></td>
-            <td class="num">+3500</td>
-            <td class="num"><span class="pr-prob">2.8%</span><div class="pr-bar"><i style="width:12%"></i></div></td>
-            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
-          </tr>
-          <tr>
-            <td class="pr-rank">11</td>
-            <td><span class="pr-team"><span class="code">USA</span>USA</span></td>
-            <td class="num">+3500</td>
-            <td class="num"><span class="pr-prob">2.8%</span><div class="pr-bar"><i style="width:12%"></i></div></td>
-            <td class="num hide-sm pr-model">2.5%</td>
-          </tr>
-          <tr>
-            <td class="pr-rank">12</td>
-            <td><span class="pr-team"><span class="code">MAR</span>Morocco</span></td>
-            <td class="num">+4000</td>
-            <td class="num"><span class="pr-prob">2.4%</span><div class="pr-bar"><i style="width:11%"></i></div></td>
-            <td class="num hide-sm pr-model"><span class="pr-na">—</span></td>
+            <td class="num">+125</td>
+            <td class="num"><span class="pr-prob">44.4%</span><div class="pr-bar"><i style="width:72%"></i></div></td>
+            <td class="num hide-sm pr-model">42.5%</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="pred-foot"><b>Read it carefully.</b> "Market %" is implied from sportsbook odds and includes the book's margin, so the column sums to more than 100% — treat it as relative, not literal. "Model %" is the Opta/SI supercomputer's post-group-stage simulation (true probabilities, published for select sides). Both are estimates and both shift after every result. Market odds: FOX Sports oddsboard, Jun 28. Model: SI/Opta, Jun 28.</p>
+    <p class="pred-foot"><b>Read it carefully.</b> "Market %" is implied from the FanDuel moneyline and includes the book's margin, so the two rows sum to more than 100% — treat it as relative, not literal. "Kalshi %" is the prediction-market trade price, which reads closer to a true probability. Both move until kickoff. Moneyline: FanDuel, Jul 15. Exchange: Kalshi, Jul 15.</p>
   </div>
 </section>
 
@@ -876,12 +911,12 @@
     <div class="fgrid">
       <div>
         <h3>About this page</h3>
-        <p>A single HTML file tracking the 2026 FIFA World Cup: the all-time scoring record, the Golden Boot race, the Round of 32, the title odds, and the final group tables. No build step, no backend — the only external request is the Google Fonts stylesheet.</p>
-        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#ff8a93">Live</span> was current as of <b>Jun 28, 2026</b> and will drift as matches are played. Group tables are final. A true live version would need a small backend proxy.</div>
+        <p>A single HTML file tracking the 2026 FIFA World Cup: the all-time scoring record, the Golden Boot race, the full knockout bracket, the final odds, and the group tables. No build step, no backend — the only external request is the Google Fonts stylesheet.</p>
+        <div class="disc"><b>It's a snapshot, not a live feed.</b> A standalone HTML file can't poll a data feed (no backend, and browsers block cross-origin calls). Every figure marked <span style="color:#ff8a93">Live</span> was current as of <b>Jul 15, 2026</b> — after both semi-finals — and only the final and third-place match can still move them. Group tables and knockout results through the semis are final.</div>
       </div>
       <div>
         <h3>Sources</h3>
-        <p>FIFA · ESPN · Wikipedia (all-time list)<br>Official Round of 32 bracket (Sky / CBS / Yahoo)<br>FOX Sports oddsboard<br>SI / Opta supercomputer model</p>
+        <p>FIFA · ESPN · NBC (all-time list)<br>CBS Sports (knockout results)<br>Yahoo Sports / Goal (Golden Boot)<br>FanDuel · Kalshi (final odds)</p>
       </div>
       <div>
         <h3>Verify before you lean on it</h3>
@@ -890,7 +925,7 @@
     </div>
     <div class="sig">
       <span>Built by Nigel Dumont — portfolio demo</span>
-      <span>Snapshot · 2026-06-28</span>
+      <span>Snapshot · 2026-07-15</span>
     </div>
   </div>
 </footer>
